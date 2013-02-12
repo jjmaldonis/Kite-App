@@ -18,6 +18,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
+    NSLog(@"In Location Init");
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -27,6 +28,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -48,11 +50,13 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"In Location's done-return segue");
     if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
         if ([self.longitudeInput.text length] || [self.latitudeInput.text length]) {
             /*ASpot *aSpot;
             aSpot = [[ASpot alloc] initWithLocation:self.birdNameInput.text location:self.locationInput.text date:today];
             self.birdSighting = sighting;*/
+            
         }
     }
 }

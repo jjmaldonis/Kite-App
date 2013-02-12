@@ -16,7 +16,7 @@
 
 
 @interface KiteSpotMasterViewController () {
-    //NSMutableArray *_objects;
+    
 }
 @end
 
@@ -24,13 +24,28 @@
 
 - (void)awakeFromNib
 {
+    NSLog(@"In MVC's awakeFromNib");
     [super awakeFromNib];
 }
 
 - (void)viewDidLoad
 {
+    NSLog(@"In MVC's viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)configureView
+{
+    // Update the user interface for the master.
+    ASpot *aSpot = self.aSpot;
+    
+    if (aSpot) {
+        //self.locationLabel.text = aSpot.location;
+        self.timesLabel.text = aSpot.times;
+        self.windLabel.text = aSpot.wind;
+        self.emailLabel.text = aSpot.email;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,6 +56,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"In MVC's canEditRowAtIndexPath");
     // Return NO if you do not want the specified item to be editable.
     return NO;
 }
@@ -53,6 +69,11 @@
         detailViewController.sighting = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];*/
 
     if ([[segue identifier] isEqualToString:@"goToLocationDetails"]) {
+        NSLog(@"In segue to Location Details");
+        NSLog(@"segue: %@",segue);
+        NSLog(@"identifier = %@",[segue identifier]);
+        NSLog(@"dest = %@",[segue destinationViewController]);
+        NSLog(@"source = %@",[segue sourceViewController]);
         //load the previous data if there was any
     }
     
@@ -64,13 +85,14 @@
         //load the previous data if there was any
     }
     
-    if ([[segue identifier] isEqualToString:@"goToEmailDetails"]) {
+    if ([[segue identifier] isEqualToString:@"goToContactDetails"]) {
         //load the previous data if there was any
     }
 }
 
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
+    NSLog(@"In MVC's done:");
     if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
         
         /*AddSightingViewController *addController = [segue sourceViewController];
@@ -90,6 +112,7 @@
 
 - (IBAction)cancel:(UIStoryboardSegue *)segue
 {
+    NSLog(@"In MVC's cance:");
     if ([[segue identifier] isEqualToString:@"LocationCancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }

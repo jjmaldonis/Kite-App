@@ -10,14 +10,17 @@
 
 @interface ASpot : NSObject
 
-@property (nonatomic, copy) NSString *location;
+@property (nonatomic) NSInteger *longitude;
+@property (nonatomic) NSInteger *latitude;
 @property (nonatomic, copy) NSString *wind;
 @property (nonatomic, copy) NSString *email;
 //add other contact info
 @property (nonatomic, copy) NSString *times;
 //@property (weak, nonatomic) NSString *days;
 
--(id)initWithLocation:(NSString *)location wind:(NSString *)wind email:(NSString *)email times:(NSString *)times;
+-(id)initAll:(NSInteger *)longitude latitude:(NSInteger *)latitude wind:(NSString *)wind email:(NSString *)email times:(NSString *)times;
+
+-(id)setLocation:(NSInteger *)longitude latitude:(NSInteger *)latitude;
 
 
 
