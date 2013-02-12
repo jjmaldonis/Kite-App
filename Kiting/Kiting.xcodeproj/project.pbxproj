@@ -18,7 +18,6 @@
 		0F6E08DE16CAC8E300277C07 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E08DD16CAC8E300277C07 /* Default-568h@2x.png */; };
 		0F6E08E116CAC8E400277C07 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E08DF16CAC8E400277C07 /* MainStoryboard.storyboard */; };
 		0F6E08E416CAC8E400277C07 /* KiteSpotMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E08E316CAC8E400277C07 /* KiteSpotMasterViewController.m */; };
-		0F6E08E716CAC8E400277C07 /* KiteSpotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E08E616CAC8E400277C07 /* KiteSpotDetailViewController.m */; };
 		0F6E08EF16CAC8E700277C07 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08EE16CAC8E700277C07 /* SenTestingKit.framework */; };
 		0F6E08F016CAC8E700277C07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08C716CAC8E100277C07 /* UIKit.framework */; };
 		0F6E08F116CAC8E700277C07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08C916CAC8E100277C07 /* Foundation.framework */; };
@@ -54,8 +53,6 @@
 		0F6E08E016CAC8E400277C07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		0F6E08E216CAC8E400277C07 /* KiteSpotMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiteSpotMasterViewController.h; sourceTree = "<group>"; };
 		0F6E08E316CAC8E400277C07 /* KiteSpotMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiteSpotMasterViewController.m; sourceTree = "<group>"; };
-		0F6E08E516CAC8E400277C07 /* KiteSpotDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiteSpotDetailViewController.h; sourceTree = "<group>"; };
-		0F6E08E616CAC8E400277C07 /* KiteSpotDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiteSpotDetailViewController.m; sourceTree = "<group>"; };
 		0F6E08ED16CAC8E700277C07 /* KitingTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KitingTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6E08EE16CAC8E700277C07 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		0F6E08F616CAC8E700277C07 /* KitingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KitingTests-Info.plist"; sourceTree = "<group>"; };
@@ -130,8 +127,6 @@
 				0F6E08DF16CAC8E400277C07 /* MainStoryboard.storyboard */,
 				0F6E08E216CAC8E400277C07 /* KiteSpotMasterViewController.h */,
 				0F6E08E316CAC8E400277C07 /* KiteSpotMasterViewController.m */,
-				0F6E08E516CAC8E400277C07 /* KiteSpotDetailViewController.h */,
-				0F6E08E616CAC8E400277C07 /* KiteSpotDetailViewController.m */,
 				0F6E08CE16CAC8E100277C07 /* Supporting Files */,
 			);
 			path = Kiting;
@@ -284,7 +279,6 @@
 				0F6E08D416CAC8E200277C07 /* main.m in Sources */,
 				0F6E08D816CAC8E200277C07 /* KiteSpotAppDelegate.m in Sources */,
 				0F6E08E416CAC8E400277C07 /* KiteSpotMasterViewController.m in Sources */,
-				0F6E08E716CAC8E400277C07 /* KiteSpotDetailViewController.m in Sources */,
 				0F6E090716CACDDD00277C07 /* ASpot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
