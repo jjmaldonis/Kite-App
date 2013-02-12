@@ -12,6 +12,9 @@
 
 #import "ASpot.h"
 
+#import "AddLocationViewController.h"
+
+
 @interface KiteSpotMasterViewController () {
     //NSMutableArray *_objects;
 }
@@ -44,10 +47,50 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        //NSDate *object = _objects[indexPath.row];
-        //[[segue destinationViewController] setDetailItem:object];
+    /*if ([[segue identifier] isEqualToString:@"ShowSightingDetails"]) {
+        BirdsDetailViewController *detailViewController = [segue destinationViewController];
+        
+        detailViewController.sighting = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];*/
+
+    if ([[segue identifier] isEqualToString:@"goToLocationDetails"]) {
+        //load the previous data if there was any
+    }
+    
+    if ([[segue identifier] isEqualToString:@"goToTimesDetails"]) {
+        //load the previous data if there was any
+    }
+    
+    if ([[segue identifier] isEqualToString:@"goToWindDetails"]) {
+        //load the previous data if there was any
+    }
+    
+    if ([[segue identifier] isEqualToString:@"goToEmailDetails"]) {
+        //load the previous data if there was any
+    }
+}
+
+- (IBAction)done:(UIStoryboardSegue *)segue
+{
+    if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
+        
+        /*AddSightingViewController *addController = [segue sourceViewController];
+        if (addController.birdSighting) {
+            [self.dataController addBirdSightingWithSighting:addController.birdSighting];
+            [[self tableView] reloadData];
+        }*/
+        
+        //here i want to save the data they input, but if they didn't input into all the required fields I don't want to let them return. I do want to save the data they input tho so that if they click cancel and then come back here later the data they input is still there.
+        //i probably also need to do something else, see the commented out portion above
+        
+        //[[self tableView] reloadData];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+}
+
+- (IBAction)cancel:(UIStoryboardSegue *)segue
+{
+    if ([[segue identifier] isEqualToString:@"LocationCancelInput"]) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 

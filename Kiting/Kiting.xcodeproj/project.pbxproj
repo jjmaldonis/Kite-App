@@ -24,6 +24,7 @@
 		0F6E08F916CAC8E700277C07 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E08F716CAC8E700277C07 /* InfoPlist.strings */; };
 		0F6E08FC16CAC8E800277C07 /* KitingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E08FB16CAC8E800277C07 /* KitingTests.m */; };
 		0F6E090716CACDDD00277C07 /* ASpot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090616CACDDD00277C07 /* ASpot.m */; };
+		0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090916CAEA1500277C07 /* AddLocationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		0F6E08FB16CAC8E800277C07 /* KitingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KitingTests.m; sourceTree = "<group>"; };
 		0F6E090516CACDDD00277C07 /* ASpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASpot.h; sourceTree = "<group>"; };
 		0F6E090616CACDDD00277C07 /* ASpot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASpot.m; sourceTree = "<group>"; };
+		0F6E090816CAEA1500277C07 /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
+		0F6E090916CAEA1500277C07 /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				0F6E08DF16CAC8E400277C07 /* MainStoryboard.storyboard */,
 				0F6E08E216CAC8E400277C07 /* KiteSpotMasterViewController.h */,
 				0F6E08E316CAC8E400277C07 /* KiteSpotMasterViewController.m */,
+				0F6E090816CAEA1500277C07 /* AddLocationViewController.h */,
+				0F6E090916CAEA1500277C07 /* AddLocationViewController.m */,
 				0F6E08CE16CAC8E100277C07 /* Supporting Files */,
 			);
 			path = Kiting;
@@ -280,6 +285,7 @@
 				0F6E08D816CAC8E200277C07 /* KiteSpotAppDelegate.m in Sources */,
 				0F6E08E416CAC8E400277C07 /* KiteSpotMasterViewController.m in Sources */,
 				0F6E090716CACDDD00277C07 /* ASpot.m in Sources */,
+				0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
