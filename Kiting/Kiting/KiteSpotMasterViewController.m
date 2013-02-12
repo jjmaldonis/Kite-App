@@ -81,6 +81,7 @@
         
         //here i want to save the data they input, but if they didn't input into all the required fields I don't want to let them return. I do want to save the data they input tho so that if they click cancel and then come back here later the data they input is still there.
         //i probably also need to do something else, see the commented out portion above
+        //put a checkmark by location if this all goes through
         
         //[[self tableView] reloadData];
         [self dismissViewControllerAnimated:YES completion:NULL];
