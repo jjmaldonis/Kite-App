@@ -31,6 +31,17 @@
     //NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
 
+    ASpot *aSpot = self.aSpot;
+    
+    if(aSpot)
+    {
+        NSLog(@"There was already something there!");
+    }
+    else if(aSpot == (NULL)) //should be the same as "else"
+    {
+        NSLog(@"There wasn't anything there...");
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
 
@@ -51,14 +62,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     //NSLog(@"In Location's done-return segue");
+    
     if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
+        
         if ([self.longitudeInput.text length] || [self.latitudeInput.text length]) {
-            /*ASpot *aSpot;
-            aSpot = [[ASpot alloc] initWithLocation:self.birdNameInput.text location:self.locationInput.text date:today];
-            self.birdSighting = sighting;*/
-            
-            //ASpot *aSpot;
-            //aSpot = [[ASpot alloc] setLocation:self.longitudeInput.text latitude:self.latitudeInput.text];
             
             //init aSpot
             self.aSpot = [[ASpot alloc] init];
@@ -72,5 +79,9 @@
         }
     }
 }
+
+//___________________________________________________
+
+
 
 @end

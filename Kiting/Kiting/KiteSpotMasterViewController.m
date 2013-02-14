@@ -69,13 +69,45 @@
         detailViewController.sighting = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];*/
 
     if ([[segue identifier] isEqualToString:@"goToLocationDetails"]) {
-        /*NSLog(@"In segue to Location Details");
-        NSLog(@"segue: %@",segue);
-        NSLog(@"identifier = %@",[segue identifier]);
+        //NSLog(@"In segue to Location Details");
+        //NSLog(@"segue: %@",segue);
+        //NSLog(@"identifier = %@",[segue identifier]);
         NSLog(@"dest = %@",[segue destinationViewController]);
-        NSLog(@"source = %@",[segue sourceViewController]);*/
-        //load the previous data if there was any
+        //NSLog(@"source = %@",[segue sourceViewController]);
         
+        //load the previous data if there was any
+        if(self.aSpot)
+        {
+            AddLocationViewController *addLVC = (AddLocationViewController*) [segue destinationViewController];
+            
+            if(addLVC)
+            {
+                NSLog(@"It is alive!");
+            }
+
+            //addLVC.aSpot = [[ASpot alloc] init];
+            
+            if(self.aSpot.latitude)
+            {
+                NSLog(@"lat to be sent = %@",self.aSpot.latitude);
+                //send latitude to location view controller
+                UITextField *longtext;
+                longtext.text = self.aSpot.latitude;
+                [addLVC setLongitudeInput:longtext];
+                
+                //addLVC.latitudeInput.text = self.aSpot.latitude;
+                //NSLog(@"lat set to = %@",addLVC.aSpot.latitude);
+            }
+            if(self.aSpot.longitude)
+            {
+                NSLog(@"long to be sent = %@",self.aSpot.longitude);
+                //send longitude to location view controller
+                //[addLVC setLongitudeInput:self.aSpot.longitude];
+                //addLVC.longitudeInput.text = self.aSpot.longitude;
+                //NSLog(@"long set to = %@",addLVC.aSpot.longitude);
+            }
+        }
+         
         //NSLog(@"loc = %@",_locationLabel);
     }
     
@@ -101,12 +133,6 @@
     //NSLog(@"In MVC's done:");
     if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
         
-        /*AddSightingViewController *addController = [segue sourceViewController];
-        if (addController.birdSighting) {
-            [self.dataController addBirdSightingWithSighting:addController.birdSighting];
-            [[self tableView] reloadData];
-        }*/
-        
         //save any input -- I think this is going to overwrite the any previous stuff so i need to fix that
         self.aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
         NSLog(@"long = %@",self.aSpot.longitude);
@@ -120,7 +146,7 @@
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             
             //update the "Add ..." details to reflect their input
-            self.locationLabel.text = self.aSpot.longitude;// + ", " + self.aSpot.latitude;
+            self.locationLabel.text =[NSString stringWithFormat:@"(%@, %@)", self.aSpot.longitude, self.aSpot.latitude];
             
             [[self tableView] reloadData];
             
