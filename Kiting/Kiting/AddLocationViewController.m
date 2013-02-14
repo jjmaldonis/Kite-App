@@ -60,6 +60,9 @@
             //ASpot *aSpot;
             //aSpot = [[ASpot alloc] setLocation:self.longitudeInput.text latitude:self.latitudeInput.text];
             
+            //init aSpot
+            self.aSpot = [[ASpot alloc] init];
+            
             NSLog(@"%@",self.longitudeInput.text);
             
             self.aSpot.longitude = self.longitudeInput.text;

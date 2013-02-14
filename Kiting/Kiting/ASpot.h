@@ -10,8 +10,8 @@
 
 @interface ASpot : NSObject
 
-@property (nonatomic) NSString *longitude;
-@property (nonatomic) NSString *latitude;
+@property (nonatomic, copy) NSString *longitude;
+@property (nonatomic, copy) NSString *latitude;
 @property (nonatomic, copy) NSString *wind;
 @property (nonatomic, copy) NSString *email;
 //add other contact info
