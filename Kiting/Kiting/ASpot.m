@@ -10,7 +10,7 @@
 
 @implementation ASpot
 
--(id) initAll:(NSInteger *)longitude latitude:(NSInteger *)latitude wind:(NSString *)wind email:(NSString *)email times:(NSString *)times
+-(id) initAll:(NSString *)longitude latitude:(NSString *)latitude wind:(NSString *)wind email:(NSString *)email times:(NSString *)times
 {
     self = [super init];
     if (self) {
@@ -24,7 +24,7 @@
     return nil;
 }
 
--(id) setLocation:(NSInteger *)longitude latitude:(NSInteger *)latitude
+-(id) setLocation:(NSString *)longitude latitude:(NSString *)latitude
 {
     if(longitude)
     {

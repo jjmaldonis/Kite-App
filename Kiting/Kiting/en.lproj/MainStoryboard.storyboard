@@ -248,6 +248,12 @@
                     <navigationItem key="navigationItem" title="Add Spot" id="36">
                         <barButtonItem key="rightBarButtonItem" title="Upload!" id="ecn-r1-KIG"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="cz1-iN-GJD" id="cU0-It-yeo"/>
+                        <outlet property="locationLabel" destination="GBS-Oy-JYf" id="G95-TR-lsa"/>
+                        <outlet property="timesLabel" destination="GgZ-qS-Glb" id="ZA2-bd-j98"/>
+                        <outlet property="windLabel" destination="ZGE-3m-D8y" id="Z7S-T9-2hi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
