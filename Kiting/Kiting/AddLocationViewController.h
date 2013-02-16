@@ -12,8 +12,16 @@
 
 @interface AddLocationViewController : UITableViewController <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *siteNameInput;
+@property (weak, nonatomic) IBOutlet UITextField *cityInput;
+@property (weak, nonatomic) IBOutlet UITextField *stateInput;
 @property (weak, nonatomic) IBOutlet UITextField *longitudeInput;
 @property (weak, nonatomic) IBOutlet UITextField *latitudeInput;
+@property (weak, nonatomic) IBOutlet UITextField *daysInput;
+@property (weak, nonatomic) IBOutlet UITextField *timesInput;
+@property (weak, nonatomic) IBOutlet UITextField *windInput;
+@property (weak, nonatomic) IBOutlet UITextField *emailInput;
+@property (weak, nonatomic) IBOutlet UITextField *phoneInput;
 
 @property (strong, nonatomic) ASpot *aSpot;
 

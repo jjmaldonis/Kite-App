@@ -20,13 +20,7 @@
 //and click and drag New Referencing Outlet to the main MVC (in yellow)
 //but if i do this i get a run time error
 //i want these to update in the MVC when the data is set (along with a check mark on the side)
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *windLabel;
-@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
-//add other contact info?
-@property (weak, nonatomic) IBOutlet UILabel *timesLabel;
-//@property (weak, nonatomic) NSString *daysLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *siteNameLabel;
 
 - (IBAction)done:(UIStoryboardSegue *)segue;
 - (IBAction)cancel:(UIStoryboardSegue *)segue;

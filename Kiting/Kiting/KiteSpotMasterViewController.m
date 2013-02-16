@@ -17,10 +17,14 @@
 
 @interface KiteSpotMasterViewController () {
     
+    NSMutableArray *masterList;
+    
 }
 @end
 
 @implementation KiteSpotMasterViewController
+
+// I should add a delete button that then deletes the spot from the database as well
 
 - (void)awakeFromNib
 {
@@ -33,19 +37,49 @@
     //NSLog(@"In MVC's viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSpot:)];
+    self.navigationItem.rightBarButtonItem = addButton;
+}
+
+- (void)addSpot:(id)sender
+{
+    if (!masterList) {
+        masterList = [[NSMutableArray alloc] init];
+    }
+    ASpot *aSpot = [[ASpot alloc] init];
+    aSpot.siteName = @"New Spot";
+    [masterList insertObject:aSpot atIndex:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self.tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:0];
+    [self performSegueWithIdentifier: @"goToDetails" sender: self];
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Spot" forIndexPath:indexPath];
+    
+    ASpot *aSpot = masterList[indexPath.row];
+    cell.textLabel.text = aSpot.siteName;
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return masterList.count;
 }
 
 - (void)configureView
 {
     // Update the user interface for the master.
-    ASpot *aSpot = self.aSpot;
-    
-    if (aSpot) {
-        //self.locationLabel.text = aSpot.location;
-        self.timesLabel.text = aSpot.times;
-        self.windLabel.text = aSpot.wind;
-        self.emailLabel.text = aSpot.email;
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,64 +97,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    /*if ([[segue identifier] isEqualToString:@"ShowSightingDetails"]) {
-        BirdsDetailViewController *detailViewController = [segue destinationViewController];
-        
-        detailViewController.sighting = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];*/
 
-    if ([[segue identifier] isEqualToString:@"goToLocationDetails"]) {
-        //NSLog(@"In segue to Location Details");
-        //NSLog(@"segue: %@",segue);
-        //NSLog(@"identifier = %@",[segue identifier]);
-        NSLog(@"dest = %@",[segue destinationViewController]);
-        //NSLog(@"source = %@",[segue sourceViewController]);
+    if ([[segue identifier] isEqualToString:@"goToDetails"]) {
+        //NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
         
         //load the previous data if there was any
-        if(self.aSpot)
-        {
-            AddLocationViewController *addLVC = (AddLocationViewController*) [segue destinationViewController];
-            
-            if(addLVC)
-            {
-                NSLog(@"It is alive!");
-            }
-
-            //addLVC.aSpot = [[ASpot alloc] init];
-            
-            if(self.aSpot.latitude)
-            {
-                NSLog(@"lat to be sent = %@",self.aSpot.latitude);
-                //send latitude to location view controller
-                UITextField *longtext;
-                longtext.text = self.aSpot.latitude;
-                [addLVC setLongitudeInput:longtext];
-                
-                //addLVC.latitudeInput.text = self.aSpot.latitude;
-                //NSLog(@"lat set to = %@",addLVC.aSpot.latitude);
-            }
-            if(self.aSpot.longitude)
-            {
-                NSLog(@"long to be sent = %@",self.aSpot.longitude);
-                //send longitude to location view controller
-                //[addLVC setLongitudeInput:self.aSpot.longitude];
-                //addLVC.longitudeInput.text = self.aSpot.longitude;
-                //NSLog(@"long set to = %@",addLVC.aSpot.longitude);
-            }
-        }
-         
-        //NSLog(@"loc = %@",_locationLabel);
-    }
-    
-    if ([[segue identifier] isEqualToString:@"goToTimesDetails"]) {
-        //load the previous data if there was any
-    }
-    
-    if ([[segue identifier] isEqualToString:@"goToWindDetails"]) {
-        //load the previous data if there was any
-    }
-    
-    if ([[segue identifier] isEqualToString:@"goToContactDetails"]) {
-        //load the previous data if there was any
+        AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
+        
+        ASpot *cellASpot = [masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        //(ASpot*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
+        addLVC.aSpot = cellASpot; //self.aSpot;
+        NSLog(@"cell = %@",cellASpot);
+        
+        NSLog(@"sending siteName = %@",cellASpot.siteName);
+        //NSLog(@"#rows = %d",[self.tableView indexPathForSelectedRow].row);
+        
     }
 }
 
@@ -131,35 +123,36 @@
     //put a checkmark by location if this all goes through
     
     //NSLog(@"In MVC's done:");
-    if ([[segue identifier] isEqualToString:@"LocationReturnInput"]) {
+    if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         
         //save any input -- I think this is going to overwrite the any previous stuff so i need to fix that
-        self.aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
-        NSLog(@"long = %@",self.aSpot.longitude);
         
-        if( /* all the variables that are essential were specified, allow them to go back, else dont*/ 1)
-        {
-            
-            //NSLog(@"Should add a checkmark");
-            //set a checkmark - CHANGE THAT 0 AT THE END TO THE CORRECT ROW
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:0];
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
-            //update the "Add ..." details to reflect their input
-            self.locationLabel.text =[NSString stringWithFormat:@"(%@, %@)", self.aSpot.longitude, self.aSpot.latitude];
-            
-            [[self tableView] reloadData];
-            
-            //let them go back to the MVC
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
+        //self.aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
+        ASpot *aSpot = (ASpot*) [self.tableView cellForRowAtIndexPath:0];
+        aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
+        
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        //cell.textLabel = aSpot.siteName;
+        
+        NSLog(@"recieved siteName = %@",aSpot.siteName);
+
+        //set a checkmark
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        //update the "Add ..." details to reflect their input
+        //self.locationLabel.text =[NSString stringWithFormat:@"(%@, %@)", self.aSpot.longitude, self.aSpot.latitude];
+        
+        [[self tableView] reloadData];
+        
+        //let them go back to the MVC
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
 - (IBAction)cancel:(UIStoryboardSegue *)segue
 {
     //NSLog(@"In MVC's cance:");
-    if ([[segue identifier] isEqualToString:@"LocationCancelInput"]) {
+    if ([[segue identifier] isEqualToString:@"CancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
