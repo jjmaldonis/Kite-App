@@ -30,6 +30,8 @@
 		0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
 		0FE63C0C16D335CF00B2C09B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0B16D335CF00B2C09B /* MapViewController.m */; };
 		0FE63C0D16D335CF00B2C09B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0B16D335CF00B2C09B /* MapViewController.m */; };
+		0FE63C1016D3E85500B2C09B /* SpotListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0F16D3E85500B2C09B /* SpotListDataController.m */; };
+		0FE63C1116D3E85500B2C09B /* SpotListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0F16D3E85500B2C09B /* SpotListDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAnnotation.m; sourceTree = "<group>"; };
 		0FE63C0A16D335CF00B2C09B /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		0FE63C0B16D335CF00B2C09B /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		0FE63C0E16D3E85500B2C09B /* SpotListDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotListDataController.h; sourceTree = "<group>"; };
+		0FE63C0F16D3E85500B2C09B /* SpotListDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotListDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				0F6E090916CAEA1500277C07 /* AddLocationViewController.m */,
 				0FE63C0A16D335CF00B2C09B /* MapViewController.h */,
 				0FE63C0B16D335CF00B2C09B /* MapViewController.m */,
+				0FE63C0E16D3E85500B2C09B /* SpotListDataController.h */,
+				0FE63C0F16D3E85500B2C09B /* SpotListDataController.m */,
 				0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */,
 				0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */,
 				0F6E08CE16CAC8E100277C07 /* Supporting Files */,
@@ -304,6 +310,7 @@
 				0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */,
 				0FE63C0816D325E600B2C09B /* MapViewAnnotation.m in Sources */,
 				0FE63C0C16D335CF00B2C09B /* MapViewController.m in Sources */,
+				0FE63C1016D3E85500B2C09B /* SpotListDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +321,7 @@
 				0F6E08FC16CAC8E800277C07 /* KitingTests.m in Sources */,
 				0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */,
 				0FE63C0D16D335CF00B2C09B /* MapViewController.m in Sources */,
+				0FE63C1116D3E85500B2C09B /* SpotListDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

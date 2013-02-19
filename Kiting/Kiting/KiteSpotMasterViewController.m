@@ -14,10 +14,12 @@
 
 #import "AddLocationViewController.h"
 
+#import "SpotListDataController.h"
+
 
 @interface KiteSpotMasterViewController () {
     
-    NSMutableArray *masterList;
+    
     
 }
 @end
@@ -30,6 +32,8 @@
 {
     //NSLog(@"In MVC's awakeFromNib");
     [super awakeFromNib];
+    
+    self.dataController = [[SpotListDataController alloc] init];
 }
 
 - (void)viewDidLoad
@@ -48,12 +52,14 @@
 
 - (void)addSpot:(id)sender
 {
-    if (!masterList) {
-        masterList = [[NSMutableArray alloc] init];
+    
+    
+    if (!self.dataController.masterList) {
+        self.dataController.masterList = [[NSMutableArray alloc] init];
     }
     ASpot *aSpot = [[ASpot alloc] init];
     aSpot.siteName = @"New Spot";
-    [masterList insertObject:aSpot atIndex:0];
+    [self.dataController.masterList insertObject:aSpot atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
@@ -66,7 +72,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Spot" forIndexPath:indexPath];
     
-    ASpot *aSpot = masterList[indexPath.row];
+    ASpot *aSpot = self.dataController.masterList[indexPath.row];
     cell.textLabel.text = aSpot.siteName;
     return cell;
 }
@@ -78,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return masterList.count;
+    return self.dataController.masterList.count;
 }
 
 - (void)configureView
@@ -101,7 +107,7 @@
         //load the previous data if there was any
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         
-        ASpot *cellASpot = [masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
         //(ASpot*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         
         addLVC.aSpot = cellASpot; //self.aSpot;
@@ -164,7 +170,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [masterList removeObjectAtIndex:indexPath.row];
+        [self.dataController.masterList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
