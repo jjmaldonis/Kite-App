@@ -25,6 +25,11 @@
 		0F6E08FC16CAC8E800277C07 /* KitingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E08FB16CAC8E800277C07 /* KitingTests.m */; };
 		0F6E090716CACDDD00277C07 /* ASpot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090616CACDDD00277C07 /* ASpot.m */; };
 		0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090916CAEA1500277C07 /* AddLocationViewController.m */; };
+		0FE63B8F16D30FBB00B2C09B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE63B8E16D30FBB00B2C09B /* MapKit.framework */; };
+		0FE63C0816D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
+		0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
+		0FE63C0C16D335CF00B2C09B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0B16D335CF00B2C09B /* MapViewController.m */; };
+		0FE63C0D16D335CF00B2C09B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0B16D335CF00B2C09B /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +69,11 @@
 		0F6E090616CACDDD00277C07 /* ASpot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASpot.m; sourceTree = "<group>"; };
 		0F6E090816CAEA1500277C07 /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
 		0F6E090916CAEA1500277C07 /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
+		0FE63B8E16D30FBB00B2C09B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAnnotation.h; sourceTree = "<group>"; };
+		0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAnnotation.m; sourceTree = "<group>"; };
+		0FE63C0A16D335CF00B2C09B /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		0FE63C0B16D335CF00B2C09B /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FE63B8F16D30FBB00B2C09B /* MapKit.framework in Frameworks */,
 				0F6E08C816CAC8E100277C07 /* UIKit.framework in Frameworks */,
 				0F6E08CA16CAC8E100277C07 /* Foundation.framework in Frameworks */,
 				0F6E08CC16CAC8E100277C07 /* CoreGraphics.framework in Frameworks */,
@@ -112,6 +123,7 @@
 		0F6E08C616CAC8E100277C07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FE63B8E16D30FBB00B2C09B /* MapKit.framework */,
 				0F6E08C716CAC8E100277C07 /* UIKit.framework */,
 				0F6E08C916CAC8E100277C07 /* Foundation.framework */,
 				0F6E08CB16CAC8E100277C07 /* CoreGraphics.framework */,
@@ -132,6 +144,10 @@
 				0F6E08E316CAC8E400277C07 /* KiteSpotMasterViewController.m */,
 				0F6E090816CAEA1500277C07 /* AddLocationViewController.h */,
 				0F6E090916CAEA1500277C07 /* AddLocationViewController.m */,
+				0FE63C0A16D335CF00B2C09B /* MapViewController.h */,
+				0FE63C0B16D335CF00B2C09B /* MapViewController.m */,
+				0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */,
+				0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */,
 				0F6E08CE16CAC8E100277C07 /* Supporting Files */,
 			);
 			path = Kiting;
@@ -286,6 +302,8 @@
 				0F6E08E416CAC8E400277C07 /* KiteSpotMasterViewController.m in Sources */,
 				0F6E090716CACDDD00277C07 /* ASpot.m in Sources */,
 				0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */,
+				0FE63C0816D325E600B2C09B /* MapViewAnnotation.m in Sources */,
+				0FE63C0C16D335CF00B2C09B /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +312,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F6E08FC16CAC8E800277C07 /* KitingTests.m in Sources */,
+				0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */,
+				0FE63C0D16D335CF00B2C09B /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +480,7 @@
 				0F6E090116CAC8E800277C07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0F6E090216CAC8E800277C07 /* Build configuration list for PBXNativeTarget "KitingTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +489,7 @@
 				0F6E090416CAC8E800277C07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

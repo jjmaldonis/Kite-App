@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad
 {
-    //NSLog(@"In Location viewDidLoad");
+    NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
 
     //ASpot *aSpot = self.aSpot;
@@ -50,6 +50,8 @@
         self.windInput.text = self.aSpot.wind;
         self.emailInput.text = self.aSpot.email;
         self.phoneInput.text = self.aSpot.phone;
+        
+        NSLog(@"At end of Location viewDidLoad");
         
     }
     else if(self.aSpot == (NULL))

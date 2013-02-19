@@ -34,9 +34,13 @@
 
 - (void)viewDidLoad
 {
-    //NSLog(@"In MVC's viewDidLoad");
+    NSLog(@"In MVC's viewDidLoad");
+    //NSLog(@"my loc = %@",self.mapView.userLocation);
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSpot:)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -88,18 +92,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //NSLog(@"In MVC's canEditRowAtIndexPath");
-    // Return NO if you do not want the specified item to be editable.
-    return NO;
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 
     if ([[segue identifier] isEqualToString:@"goToDetails"]) {
-        //NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
+        NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
         
         //load the previous data if there was any
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
@@ -112,7 +109,6 @@
         
         NSLog(@"sending siteName = %@",cellASpot.siteName);
         //NSLog(@"#rows = %d",[self.tableView indexPathForSelectedRow].row);
-        
     }
 }
 
@@ -154,6 +150,24 @@
     //NSLog(@"In MVC's cance:");
     if ([[segue identifier] isEqualToString:@"CancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"In MVC's canEditRowAtIndexPath");
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [masterList removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
 
