@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SpotListDataController;
+
 @interface KiteSpotAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) SpotListDataController *dataController;
+
+//@property (nonatomic, copy) NSMutableArray *masterList;
 
 @end

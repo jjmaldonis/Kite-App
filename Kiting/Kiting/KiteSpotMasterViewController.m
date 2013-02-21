@@ -16,6 +16,8 @@
 
 #import "SpotListDataController.h"
 
+#import "KiteSpotAppDelegate.h"
+
 
 @interface KiteSpotMasterViewController () {
     
@@ -30,15 +32,15 @@
 
 - (void)awakeFromNib
 {
-    //NSLog(@"In MVC's awakeFromNib");
+    //NSLog(@"In MasterVC's awakeFromNib");
     [super awakeFromNib];
     
-    self.dataController = [[SpotListDataController alloc] init];
+
 }
 
 - (void)viewDidLoad
 {
-    NSLog(@"In MVC's viewDidLoad");
+    //NSLog(@"In MVC's viewDidLoad");
     //NSLog(@"my loc = %@",self.mapView.userLocation);
 
     [super viewDidLoad];
@@ -48,19 +50,34 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSpot:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
+    //NSLog(@"dc = %@",self.dataController);
 }
 
 - (void)addSpot:(id)sender
 {
     
-    
-    if (!self.dataController.masterList) {
-        self.dataController.masterList = [[NSMutableArray alloc] init];
-    }
+//    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
+//    
+//    if(!((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController.masterList){
+//        NSLog(@"There was no delegate masterList");
+//    }
+//    
+//    if (!self.dataController.masterList) {
+//        NSLog(@"There was no dataController.masterList");
+//        self.dataController.masterList = [[NSMutableArray alloc] init];
+//    }
     ASpot *aSpot = [[ASpot alloc] init];
     aSpot.siteName = @"New Spot";
-    [self.dataController.masterList insertObject:aSpot atIndex:0];
+    
+    [self.dataController addSpot:aSpot];
+    
+    //[self.dataController.masterList insertObject:aSpot atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    //NSLog(@"list = %@",self.dataController.masterList);
+    
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     [self.tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:0];
@@ -102,7 +119,7 @@
 {
 
     if ([[segue identifier] isEqualToString:@"goToDetails"]) {
-        NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
+        //NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
         
         //load the previous data if there was any
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
@@ -111,9 +128,9 @@
         //(ASpot*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         
         addLVC.aSpot = cellASpot; //self.aSpot;
-        NSLog(@"cell = %@",cellASpot);
+        //NSLog(@"cell = %@",cellASpot);
         
-        NSLog(@"sending siteName = %@",cellASpot.siteName);
+        //NSLog(@"sending siteName = %@",cellASpot.siteName);
         //NSLog(@"#rows = %d",[self.tableView indexPathForSelectedRow].row);
     }
 }
@@ -136,7 +153,7 @@
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         //cell.textLabel = aSpot.siteName;
         
-        NSLog(@"recieved siteName = %@",aSpot.siteName);
+        //NSLog(@"recieved siteName = %@",aSpot.siteName);
 
         //set a checkmark
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

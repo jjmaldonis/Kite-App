@@ -8,11 +8,16 @@
 
 #import "KiteSpotAppDelegate.h"
 
+#import "SpotListDataController.h"
+
 @implementation KiteSpotAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    self.dataController = [[SpotListDataController alloc] init];
+    
     return YES;
 }
 							

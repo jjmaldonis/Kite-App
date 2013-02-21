@@ -16,4 +16,10 @@
 
 @property (nonatomic, copy) NSMutableArray *masterList;
 
+- (id)init;
+- (NSMutableArray *)getMasterList;
+- (NSUInteger)countOfList;
+- (ASpot *)objectInListAtIndex:(NSUInteger)theIndex;
+- (void)addSpot:(ASpot *)aSpot;
+
 @end

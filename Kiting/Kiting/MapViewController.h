@@ -10,6 +10,8 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class SpotListDataController;
+
 @interface MapViewController : UIViewController {
     
     MKMapView *mapView;
@@ -19,5 +21,6 @@
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
+@property (strong, nonatomic) SpotListDataController *dataController;
 
 @end

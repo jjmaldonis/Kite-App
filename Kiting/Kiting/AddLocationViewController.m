@@ -30,16 +30,11 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"In Location viewDidLoad");
+    //NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
 
-    //ASpot *aSpot = self.aSpot;
-    
     if(self.aSpot)
     {
-        //self.aSpot = [[ASpot alloc] init];
-        
-        //NSLog(@"There was already something there!");
         self.siteNameInput.text = self.aSpot.siteName;
         self.cityInput.text = self.aSpot.city;
         self.stateInput.text = self.aSpot.state;
@@ -50,13 +45,6 @@
         self.windInput.text = self.aSpot.wind;
         self.emailInput.text = self.aSpot.email;
         self.phoneInput.text = self.aSpot.phone;
-        
-        NSLog(@"At end of Location viewDidLoad");
-        
-    }
-    else if(self.aSpot == (NULL))
-    {
-        //NSLog(@"There wasn't anything there.");
     }
     
     // Uncomment the following line to preserve selection between presentations.
@@ -71,18 +59,24 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    //if ((textField == self.longitudeInput) || (textField == self.latitudeInput)) {
         [textField resignFirstResponder];
-    //}
+    return YES;
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"ReturnInput"]) {
+        
+        if( [self.longitudeInput.text length] == 0 || [self.latitudeInput.text length] == 0 || [self.siteNameInput.text length] == 0 ) {
+            return NO;
+        }
+    }
     return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-            
-        //init aSpot
-        //self.aSpot = [[ASpot alloc] init];
 
         self.aSpot.siteName = self.siteNameInput.text;
         self.aSpot.city = self.cityInput.text;
@@ -96,9 +90,5 @@
         self.aSpot.phone = self.phoneInput.text;
     }
 }
-
-//___________________________________________________
-
-
 
 @end

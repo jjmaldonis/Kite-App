@@ -17,7 +17,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.masterList = [[NSMutableArray alloc] init];;
+        self.masterList = [[NSMutableArray alloc] init];
         return self;
     }
     return nil;
@@ -29,7 +29,11 @@
     }
 }
 
-/*- (NSUInteger)countOfList {
+- (NSMutableArray *)getMasterList {
+    return self.masterList;
+}
+
+- (NSUInteger)countOfList {
     return [self.masterList count];
 }
 
@@ -38,7 +42,7 @@
 }
 
 - (void)addSpot:(ASpot *)aSpot {
-    [self.masterList addObject:aSpot];
-}*/
+    [self.masterList insertObject:aSpot atIndex:0];
+}
 
 @end
