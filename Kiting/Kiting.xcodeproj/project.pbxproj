@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F060BCF16D688DD000E7102 /* Jason is a n00b in Resources */ = {isa = PBXBuildFile; fileRef = 0F060BCE16D688DD000E7102 /* Jason is a n00b */; };
 		0F6E08C816CAC8E100277C07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08C716CAC8E100277C07 /* UIKit.framework */; };
 		0F6E08CA16CAC8E100277C07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08C916CAC8E100277C07 /* Foundation.framework */; };
 		0F6E08CC16CAC8E100277C07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E08CB16CAC8E100277C07 /* CoreGraphics.framework */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F060BCE16D688DD000E7102 /* Jason is a n00b */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Jason is a n00b"; sourceTree = "<group>"; };
 		0F6E08C316CAC8E100277C07 /* Kiting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6E08C716CAC8E100277C07 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0F6E08C916CAC8E100277C07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -152,6 +154,7 @@
 				0F6E090916CAEA1500277C07 /* AddLocationViewController.m */,
 				0FE63C0A16D335CF00B2C09B /* MapViewController.h */,
 				0FE63C0B16D335CF00B2C09B /* MapViewController.m */,
+				0F060BCE16D688DD000E7102 /* Jason is a n00b */,
 				0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */,
 				0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */,
 				0F6E08CE16CAC8E100277C07 /* Supporting Files */,
@@ -269,6 +272,7 @@
 				0F6E08DC16CAC8E300277C07 /* Default@2x.png in Resources */,
 				0F6E08DE16CAC8E300277C07 /* Default-568h@2x.png in Resources */,
 				0F6E08E116CAC8E400277C07 /* MainStoryboard.storyboard in Resources */,
+				0F060BCF16D688DD000E7102 /* Jason is a n00b in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

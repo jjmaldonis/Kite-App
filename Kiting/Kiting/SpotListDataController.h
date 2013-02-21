@@ -22,4 +22,6 @@
 - (ASpot *)objectInListAtIndex:(NSUInteger)theIndex;
 - (void)addSpot:(ASpot *)aSpot;
 
+- (void)initWithAllData:(NSArray *)data;
+
 @end

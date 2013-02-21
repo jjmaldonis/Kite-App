@@ -471,9 +471,8 @@
         <!--Tab Bar Controller-->
         <scene sceneID="DFo-Gu-RVE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4pQ-HN-yth" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="Tab Bar Controller" definesPresentationContext="YES" id="jXJ-Q2-xkz" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="foX-Zq-4r3">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -484,6 +483,7 @@
                         <segue destination="Tby-Ra-a87" kind="relationship" relationship="viewControllers" id="eok-Rt-LO6"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4pQ-HN-yth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1407" y="460"/>
         </scene>
