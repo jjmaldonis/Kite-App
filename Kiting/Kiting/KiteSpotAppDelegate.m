@@ -23,10 +23,15 @@
     // paths[0];
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
+    NSLog(@"%@",plistPath);
     
     if ([fileManager fileExistsAtPath:plistPath] == YES)
     {
-        NSString *contentOfFile = [NSString stringWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
+        NSArray *list;
+        list = [list initWithContentsOfFile:plistPath];
+        NSLog(@"%@",list);
+        
+        /*NSString *contentOfFile = [NSString stringWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
         
         NSArray *data = [contentOfFile componentsSeparatedByString: @"\n"];
         NSInteger count = [[data objectAtIndex:0] intValue];
@@ -43,7 +48,7 @@
             dataForOneSpot = [data subarrayWithRange:range];
             
             [self.dataController initWithAllData:dataForOneSpot];
-        }
+        }*/
         
         //self.dataController
 
@@ -72,8 +77,29 @@
     // paths[0];
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
+    NSLog(@"%@",plistPath);
     
-    NSInteger count = [self.dataController countOfList];
+    NSMutableData *data = [NSMutableData data];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    
+    NSArray *list = [self.dataController getMasterList];
+    
+    [NSKeyedArchiver archiveRootObject:list toFile:plistPath];
+
+    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
+        [archiver encodeObject:( (ASpot*) [list objectAtIndex:i]).siteName forKey:@"siteName"];
+        
+        //ADD IN THE REST OF THESE ENCODE OBJECT COMMANDS
+    }
+    
+    [archiver finishEncoding];
+
+    
+    //NSArray *list = [self.dataController getMasterList];
+    BOOL success = [list writeToFile:plistPath atomically:YES];
+    NSLog(@"Write to file = %c",success);
+    
+    /*NSInteger count = [self.dataController countOfList];
     NSString *toWrite;
     
     ASpot *aSpot;
@@ -84,18 +110,10 @@
         
         [toWrite writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
         
-        /*[aSpot.siteName writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.state writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.longitude writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.latitude writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.days writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.times writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.wind writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.email writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        [aSpot.phone writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];*/
         //BOOL success = [NSKeyedArchiver archiveRootObject:aSpot toFile:plistPath];
         //NSLog(@"%c",success);
-    }
+    }*/
+    
     
     //[[NSDictionary dictionaryWithObjectsAndKeys:self.texterViewer.text, @"text", nil] writeToFile:plistPath atomically:YES];
 }

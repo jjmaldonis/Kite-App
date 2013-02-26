@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASpot : NSObject
+@interface ASpot : NSObject <NSCoding>
 
 @property (nonatomic, copy) NSString *siteName;
 @property (nonatomic, copy) NSString *city;
