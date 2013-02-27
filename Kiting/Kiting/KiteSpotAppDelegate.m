@@ -25,11 +25,20 @@
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
     NSLog(@"%@",plistPath);
     
+    ASpot *aSpot;
+    
     if ([fileManager fileExistsAtPath:plistPath] == YES)
     {
-        NSArray *list;
+        /*NSArray *list;
         list = [list initWithContentsOfFile:plistPath];
-        NSLog(@"%@",list);
+        NSLog(@"%@",list);*/
+        
+        aSpot = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
+        NSLog(@"spot = %@",aSpot);
+        while(aSpot) {
+            [self.dataController addSpot:aSpot];
+        }
+        
         
         /*NSString *contentOfFile = [NSString stringWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
         
@@ -84,20 +93,34 @@
     
     NSArray *list = [self.dataController getMasterList];
     
-    [NSKeyedArchiver archiveRootObject:list toFile:plistPath];
+    //[NSKeyedArchiver archiveRootObject:list toFile:plistPath];
 
+    ASpot *aSpot;
+    
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        [archiver encodeObject:( (ASpot*) [list objectAtIndex:i]).siteName forKey:@"siteName"];
+        aSpot = ( (ASpot*) [list objectAtIndex:i]);
+        [archiver encodeObject:aSpot.siteName forKey:@"siteName"];
+        [archiver encodeObject:aSpot.city forKey:@"city"];
+        [archiver encodeObject:aSpot.state forKey:@"state"];
+        [archiver encodeObject:aSpot.longitude forKey:@"longitude"];
+        [archiver encodeObject:aSpot.latitude forKey:@"latitude"];
+        [archiver encodeObject:aSpot.days forKey:@"days"];
+        [archiver encodeObject:aSpot.times forKey:@"times"];
+        [archiver encodeObject:aSpot.wind forKey:@"wind"];
+        [archiver encodeObject:aSpot.email forKey:@"email"];
+        [archiver encodeObject:aSpot.phone forKey:@"phone"];
         
-        //ADD IN THE REST OF THESE ENCODE OBJECT COMMANDS
+        [archiver finishEncoding];
+        
+        BOOL result = [data writeToFile:plistPath atomically:YES];
+        NSLog(@"Write to file = %c",result);
+
     }
     
-    [archiver finishEncoding];
 
     
     //NSArray *list = [self.dataController getMasterList];
-    BOOL success = [list writeToFile:plistPath atomically:YES];
-    NSLog(@"Write to file = %c",success);
+    //BOOL success = [list writeToFile:plistPath atomically:YES];
     
     /*NSInteger count = [self.dataController countOfList];
     NSString *toWrite;
