@@ -161,9 +161,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-0n-19Q">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-0n-19Q">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="eHZ-ZY-6Nb"/>
+                                                        <constraint firstAttribute="width" constant="61" id="kCW-Z5-Yd9"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -194,9 +194,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-Q2-nPj">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-Q2-nPj">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="61" id="7zn-WJ-Psr"/>
+                                                        <constraint firstAttribute="width" constant="75" id="nlQ-4C-hOr"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -411,8 +411,8 @@
                         <outlet property="cityInput" destination="fcQ-vl-Mjx" id="3tO-ZO-8c2"/>
                         <outlet property="daysInput" destination="bip-g0-XZ1" id="s5x-3O-T3s"/>
                         <outlet property="emailInput" destination="mLn-uX-zTw" id="vfv-LS-TLc"/>
-                        <outlet property="latitudeInput" destination="L75-Xx-Slv" id="oLj-S7-0N2"/>
-                        <outlet property="longitudeInput" destination="aID-xp-Svk" id="QIc-iA-B6c"/>
+                        <outlet property="latitudeInput" destination="aID-xp-Svk" id="KI0-qy-rUa"/>
+                        <outlet property="longitudeInput" destination="L75-Xx-Slv" id="Ik6-dR-OgW"/>
                         <outlet property="phoneInput" destination="T18-fZ-Omn" id="7rO-0F-Da5"/>
                         <outlet property="siteNameInput" destination="qke-nu-XkK" id="hCO-od-86P"/>
                         <outlet property="stateInput" destination="Sch-UN-RqN" id="8WD-ch-X1R"/>

@@ -18,52 +18,17 @@
 
     self.dataController = [[SpotListDataController alloc] init];
     
+    //Get the location of the file where previous data was saved, if at all
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    // paths[0];
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
     NSLog(@"%@",plistPath);
     
-    ASpot *aSpot;
-    
+    //If the file exists, get the data
     if ([fileManager fileExistsAtPath:plistPath] == YES)
     {
-        /*NSArray *list;
-        list = [list initWithContentsOfFile:plistPath];
-        NSLog(@"%@",list);*/
-        
-        aSpot = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-        NSLog(@"spot = %@",aSpot);
-        while(aSpot) {
-            [self.dataController addSpot:aSpot];
-        }
-        
-        
-        /*NSString *contentOfFile = [NSString stringWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
-        
-        NSArray *data = [contentOfFile componentsSeparatedByString: @"\n"];
-        NSInteger count = [[data objectAtIndex:0] intValue];
-        
-        
-        NSRange range;
-        range.length = 10;
-        NSArray *dataForOneSpot;
-        
-        //FIRST I NEED TO CHANGE DATA TO ONLY BE THE ARRAY OF DATA FOR A SINGLE SPOT
-        for(NSInteger i = 0; i < count; i++) {
-            
-            range.location = (i*10)+1; //I think this is correct
-            dataForOneSpot = [data subarrayWithRange:range];
-            
-            [self.dataController initWithAllData:dataForOneSpot];
-        }*/
-        
-        //self.dataController
-
-        
-        //NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        //self.texterViewer.text = [dict objectForKey:@"text"];
+        [self.dataController setMasterList:[NSKeyedUnarchiver unarchiveObjectWithFile:plistPath]];
     }
     
     return YES;
@@ -81,64 +46,17 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     //Save all the data
+    //Get the path to save to
     NSLog(@"Entering Background");
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    // paths[0];
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
     NSLog(@"%@",plistPath);
     
-    NSMutableData *data = [NSMutableData data];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    
+    //Get the list of all the spots and save the list
     NSArray *list = [self.dataController getMasterList];
-    
-    //[NSKeyedArchiver archiveRootObject:list toFile:plistPath];
-
-    ASpot *aSpot;
-    
-    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        aSpot = ( (ASpot*) [list objectAtIndex:i]);
-        [archiver encodeObject:aSpot.siteName forKey:@"siteName"];
-        [archiver encodeObject:aSpot.city forKey:@"city"];
-        [archiver encodeObject:aSpot.state forKey:@"state"];
-        [archiver encodeObject:aSpot.longitude forKey:@"longitude"];
-        [archiver encodeObject:aSpot.latitude forKey:@"latitude"];
-        [archiver encodeObject:aSpot.days forKey:@"days"];
-        [archiver encodeObject:aSpot.times forKey:@"times"];
-        [archiver encodeObject:aSpot.wind forKey:@"wind"];
-        [archiver encodeObject:aSpot.email forKey:@"email"];
-        [archiver encodeObject:aSpot.phone forKey:@"phone"];
-        
-        [archiver finishEncoding];
-        
-        BOOL result = [data writeToFile:plistPath atomically:YES];
-        NSLog(@"Write to file = %c",result);
-
-    }
-    
-
-    
-    //NSArray *list = [self.dataController getMasterList];
-    //BOOL success = [list writeToFile:plistPath atomically:YES];
-    
-    /*NSInteger count = [self.dataController countOfList];
-    NSString *toWrite;
-    
-    ASpot *aSpot;
-    for(NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        aSpot = [self.dataController objectInListAtIndex:i];
-        
-        toWrite = [NSString stringWithFormat:@"%d%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@",count,aSpot.siteName,aSpot.city,aSpot.state,aSpot.longitude,aSpot.latitude,aSpot.days,aSpot.times,aSpot.wind,aSpot.email,aSpot.phone];
-        
-        [toWrite writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        
-        //BOOL success = [NSKeyedArchiver archiveRootObject:aSpot toFile:plistPath];
-        //NSLog(@"%c",success);
-    }*/
-    
-    
-    //[[NSDictionary dictionaryWithObjectsAndKeys:self.texterViewer.text, @"text", nil] writeToFile:plistPath atomically:YES];
+    BOOL result = [NSKeyedArchiver archiveRootObject:list toFile:plistPath];
+    NSLog(@"Write to file = %c",result);
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {

@@ -24,7 +24,6 @@
 
 - (void)awakeFromNib
 {
-    //NSLog(@"In MapVC's awakeFromNib");
     
 }
 
@@ -41,60 +40,49 @@
 {
     //NSLog(@"In MapVC's viewDidLoad");
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
     
     mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     mapView.mapType = MKMapTypeHybrid;
-    
-    CLLocationCoordinate2D coord = {.latitude =  42.507793, .longitude =  -89.033031};
-    MKCoordinateSpan span = {.latitudeDelta =  0.1, .longitudeDelta =  0.1};
-    MKCoordinateRegion region = {coord, span};
-    
-    [mapView setRegion:region animated:TRUE];
     [self.view addSubview:mapView];
-    
-    // Set some coordinates for our position (Buckingham Palace!)
-	/*CLLocationCoordinate2D loc;
-	loc.latitude = (double) 42.507793;
-	loc.longitude = (double) -89.033031;
-    
-	// Add the annotation to our map view
-	MapViewAnnotation *newAnnotation = [[MapViewAnnotation alloc] initWithTitle:@"Beloit" andCoordinate:loc];
-	[self.mapView addAnnotation:newAnnotation];*/
-
     self.mapView.showsUserLocation = YES;
     
-    NSLog(@"my loc = (%f,%f)",self.mapView.userLocation.location.coordinate.longitude,self.mapView.userLocation.location.coordinate.latitude);
+    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
 
+    //Beloit Lat: 42.507793
+    //Beloit Long: -89.033031
+    //Coe Lat: 37.909534
+    //Coe Long: -122.579956
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
+    NSLog(@"In viewDidAppear");
+    //Remove all annotation on the map previously
     NSMutableArray * annotationsToRemove = [self.mapView.annotations mutableCopy] ;
     [annotationsToRemove removeObject:mapView.userLocation] ;
     [self.mapView removeAnnotations:annotationsToRemove] ;
     
-    NSLog(@"In viewDidAppear");
+    //Add all the spots in the list
     ASpot *aSpot;
     MapViewAnnotation *newAnnotation;
     CLLocationCoordinate2D loc;
-    
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-
         aSpot = [self.dataController.masterList objectAtIndex:i];
         loc.latitude = (double) [aSpot.latitude doubleValue];
         loc.longitude = (double) [aSpot.longitude doubleValue];
-
-        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@ (%@,%@)", aSpot.siteName, aSpot.longitude, aSpot.latitude] andCoordinate:loc];
-
+        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc];
         [self.mapView addAnnotation:newAnnotation];
     }
 
+    //Set zoom level
+    CLLocationCoordinate2D coord;
+    coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
+    coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
+    NSLog(@"user loc = (%f,%f)",coord.latitude,coord.longitude);
+    MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
+    MKCoordinateRegion region = {coord, span};
+    [mapView setRegion:region animated:TRUE];
 }
 
-// When a map annotation point is added, zoom to it (1500 range)
 - (void)mapView:(MKMapView *)mv didAddAnnotationViews:(NSArray *)views
 {
     NSLog(@"didAddAnnotationViews");
