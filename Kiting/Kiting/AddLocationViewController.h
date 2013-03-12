@@ -25,4 +25,6 @@
 
 @property (strong, nonatomic) ASpot *aSpot;
 
+@property (nonatomic, assign) BOOL isNew;
+
 @end

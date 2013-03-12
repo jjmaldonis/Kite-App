@@ -77,6 +77,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
+        
+        if(!self.aSpot)
+        {
+            self.aSpot = [[ASpot alloc] init];
+            
+        }
+        else
+        {
+        }
 
         self.aSpot.siteName = self.siteNameInput.text;
         self.aSpot.city = self.cityInput.text;

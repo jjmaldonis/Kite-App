@@ -52,37 +52,25 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
-    //NSLog(@"dc = %@",self.dataController);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [[self tableView] reloadData];
 }
 
 - (void)addSpot:(id)sender
 {
-    
-//    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
-//    
-//    if(!((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController.masterList){
-//        NSLog(@"There was no delegate masterList");
-//    }
-//    
-//    if (!self.dataController.masterList) {
-//        NSLog(@"There was no dataController.masterList");
-//        self.dataController.masterList = [[NSMutableArray alloc] init];
-//    }
     ASpot *aSpot = [[ASpot alloc] init];
     aSpot.siteName = @"New Spot";
     
     [self.dataController addSpot:aSpot];
     
-    //[self.dataController.masterList insertObject:aSpot atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    //NSLog(@"list = %@",self.dataController.masterList);
     
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     [self.tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:0];
     [self performSegueWithIdentifier: @"goToDetails" sender: self];
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,53 +105,26 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-
     if ([[segue identifier] isEqualToString:@"goToDetails"]) {
-        //NSLog(@"In segue to Location Details"); //NSLog(@"segue: %@",segue); //NSLog(@"identifier = %@",[segue identifier]); //NSLog(@"source = %@",[segue sourceViewController]); //NSLog(@"dest = %@",[segue destinationViewController]);
-        
         //load the previous data if there was any
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-        
         ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-        //(ASpot*) [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        
-        addLVC.aSpot = cellASpot; //self.aSpot;
-        //NSLog(@"cell = %@",cellASpot);
-        
-        //NSLog(@"sending siteName = %@",cellASpot.siteName);
-        //NSLog(@"#rows = %d",[self.tableView indexPathForSelectedRow].row);
+        addLVC.aSpot = cellASpot;
     }
 }
 
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
-    //here i want to save the data they input, but if they didn't input into all the required fields I don't want to let them return. I do want to save the data they input tho so that if they click cancel and then come back here later the data they input is still there.
-    //i probably also need to do something else, see the commented out portion above
-    //put a checkmark by location if this all goes through
-    
-    //NSLog(@"In MVC's done:");
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        
-        //save any input -- I think this is going to overwrite the any previous stuff so i need to fix that
-        
-        //self.aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
         ASpot *aSpot = (ASpot*) [self.tableView cellForRowAtIndexPath:0];
         aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        //cell.textLabel = aSpot.siteName;
         
-        //NSLog(@"recieved siteName = %@",aSpot.siteName);
-
-        //set a checkmark
+        //put a checkmark
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        //update the "Add ..." details to reflect their input
-        //self.locationLabel.text =[NSString stringWithFormat:@"(%@, %@)", self.aSpot.longitude, self.aSpot.latitude];
-        
         [[self tableView] reloadData];
-        
-        //let them go back to the MVC
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
@@ -179,8 +140,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"In MVC's canEditRowAtIndexPath");
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 

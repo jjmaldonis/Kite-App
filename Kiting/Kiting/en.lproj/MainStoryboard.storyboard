@@ -39,6 +39,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="u1f-Ha-jki"/>
+                    <connections>
+                        <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMap" id="KGk-sJ-43e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -549,4 +552,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="KGk-sJ-43e"/>
+    </inferredMetricsTieBreakers>
 </document>
