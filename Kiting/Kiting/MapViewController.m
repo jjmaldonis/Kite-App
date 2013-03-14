@@ -92,50 +92,27 @@
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
+        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
         [action showInView:self.view];
-        
     }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    //ASpot *aSpot = [[ASpot alloc] init];
-    //aSpot.siteName = @"New Spot from Map";
-    
-    //[self.dataController addSpot:aSpot];
-    
-    
-    //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    //[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    //[self.tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:0];
     [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
-        //load the previous data if there was any
-        //AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-        //ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-        //addLVC.aSpot = cellASpot;
+        //Pass location data
+        
     }
 }
 
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        /*ASpot *aSpot = (ASpot*) [self.tableView cellForRowAtIndexPath:0];
-        aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
-        
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        
-        //put a checkmark
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-        [[self tableView] reloadData];*/
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }

@@ -465,7 +465,13 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Spot" id="36"/>
+                    <navigationItem key="navigationItem" title="Add Spot" id="36">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ovj-Lc-wZo">
+                            <connections>
+                                <segue destination="R7h-ly-EEx" kind="modal" identifier="" id="4nF-T0-OHV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
@@ -537,6 +543,8 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
@@ -553,6 +561,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KGk-sJ-43e"/>
+        <segue reference="4nF-T0-OHV"/>
     </inferredMetricsTieBreakers>
 </document>

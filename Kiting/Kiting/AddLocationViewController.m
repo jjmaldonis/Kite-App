@@ -10,6 +10,10 @@
 
 #import "ASpot.h"
 
+#import "KiteSpotAppDelegate.h"
+
+#import "SpotListDataController.h"
+
 @interface AddLocationViewController ()
 
 @end
@@ -32,6 +36,8 @@
 {
     //NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
+    
+    self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
 
     if(self.aSpot)
     {
@@ -45,6 +51,9 @@
         self.windInput.text = self.aSpot.wind;
         self.emailInput.text = self.aSpot.email;
         self.phoneInput.text = self.aSpot.phone;
+    }
+    else{
+        self.siteNameInput.text = @"Temp Site Name";
     }
     
     // Uncomment the following line to preserve selection between presentations.
@@ -81,7 +90,7 @@
         if(!self.aSpot)
         {
             self.aSpot = [[ASpot alloc] init];
-            
+            [self.dataController addSpot:self.aSpot];
         }
         else
         {
@@ -98,6 +107,7 @@
         self.aSpot.email = self.emailInput.text;
         self.aSpot.phone = self.phoneInput.text;
     }
+    
 }
 
 @end

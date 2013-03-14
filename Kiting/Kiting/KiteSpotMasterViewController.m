@@ -48,29 +48,11 @@
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSpot:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [[self tableView] reloadData];
-}
-
-- (void)addSpot:(id)sender
-{
-    ASpot *aSpot = [[ASpot alloc] init];
-    aSpot.siteName = @"New Spot";
-    
-    [self.dataController addSpot:aSpot];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    [self.tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:0];
-    [self performSegueWithIdentifier: @"goToDetails" sender: self];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,7 +88,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"goToDetails"]) {
-        //load the previous data if there was any
+        //load the previous data
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
         addLVC.aSpot = cellASpot;
@@ -116,13 +98,6 @@
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        ASpot *aSpot = (ASpot*) [self.tableView cellForRowAtIndexPath:0];
-        aSpot = ((AddLocationViewController*) [segue sourceViewController]).aSpot;
-        
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        
-        //put a checkmark
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         [[self tableView] reloadData];
         [self dismissViewControllerAnimated:YES completion:NULL];
@@ -131,7 +106,6 @@
 
 - (IBAction)cancel:(UIStoryboardSegue *)segue
 {
-    //NSLog(@"In MVC's cance:");
     if ([[segue identifier] isEqualToString:@"CancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
@@ -148,8 +122,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.dataController.masterList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    } else if (editingStyle == UITableViewCellEditingStyleInsert)
+    {
     }
 }
 

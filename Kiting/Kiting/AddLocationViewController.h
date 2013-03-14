@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ASpot;
+@class SpotListDataController;
 
 @interface AddLocationViewController : UITableViewController <UITextFieldDelegate>
 
@@ -26,5 +27,7 @@
 @property (strong, nonatomic) ASpot *aSpot;
 
 @property (nonatomic, assign) BOOL isNew;
+
+@property (strong, nonatomic) SpotListDataController *dataController;
 
 @end
