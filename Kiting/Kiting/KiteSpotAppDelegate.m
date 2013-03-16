@@ -23,7 +23,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
-    NSLog(@"%@",plistPath);
+    //NSLog(@"%@",plistPath);
     
     //If the file exists, get the data
     if ([fileManager fileExistsAtPath:plistPath] == YES)

@@ -76,8 +76,53 @@
 {
     if ([identifier isEqualToString:@"ReturnInput"]) {
         
+        //Make sure there is a name, latitude, and longitude.
         if( [self.longitudeInput.text length] == 0 || [self.latitudeInput.text length] == 0 || [self.siteNameInput.text length] == 0 ) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"You must enter a name, the latitude, and the longitude at minimum." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alert show];
             return NO;
+        }
+        //Since the long and lat exist, make sure they are actually numbers between the correct values.
+        else {
+            bool status;
+            NSScanner *scanner;
+            double result;
+            scanner = [NSScanner scannerWithString:self.latitudeInput.text];
+            status = [scanner scanDouble:&result];
+            status = status && scanner.scanLocation == self.latitudeInput.text.length;
+            if( status == NO ) {
+                NSLog(@"                 1");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"Latitude must be a number between -90 and 90." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alert show];
+                return NO;
+            }
+            else {
+                CGFloat numbericLat = [self.latitudeInput.text floatValue];
+                if(numbericLat < -90 || numbericLat > 90) {
+                    NSLog(@"                 2");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"Latitude must be a number between -90 and 90." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                    [alert show];
+                    return NO;
+                }
+            }
+            scanner = [NSScanner scannerWithString:self.longitudeInput.text];
+            status = [scanner scanDouble:&result];
+            status = status && scanner.scanLocation == self.longitudeInput.text.length;
+            if( status == NO) {
+                NSLog(@"                 3");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"Longitude must be a number between -180 and 180." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alert show];
+                return NO;
+            }
+            else {
+                CGFloat numbericLong = [self.longitudeInput.text floatValue];
+                if(numbericLong < -180 || numbericLong > 180) {
+                    NSLog(@"                 4");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"Longitude must be a number between -180 and 180." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                    [alert show];
+                    return NO;
+                }
+            }
         }
     }
     return YES;

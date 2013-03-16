@@ -72,6 +72,7 @@
         loc.latitude = (double) [aSpot.latitude doubleValue];
         loc.longitude = (double) [aSpot.longitude doubleValue];
         newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc];
+        
         [self.mapView addAnnotation:newAnnotation];
     }
 
@@ -105,6 +106,19 @@
 {
     [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
 }
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    NSLog(@"%@",view);
+    NSLog(@"ANNOTATION SELECTED");
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    
+    // Your code here
+    
+    NSLog(@"ANNOTATION SELECTED");
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

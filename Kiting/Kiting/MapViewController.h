@@ -12,7 +12,7 @@
 
 @class SpotListDataController;
 
-@interface MapViewController : UIViewController <UIActionSheetDelegate> {
+@interface MapViewController : UIViewController <UIActionSheetDelegate, MKMapViewDelegate> {
     
     MKMapView *mapView;
     MKPlacemark *mPlacemark;
