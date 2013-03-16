@@ -17,6 +17,7 @@
     MKMapView *mapView;
     MKPlacemark *mPlacemark;
     CLLocationCoordinate2D location;
+    CLLocationCoordinate2D touchCoordinate;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

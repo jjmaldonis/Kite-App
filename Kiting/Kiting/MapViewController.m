@@ -57,7 +57,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"In viewDidAppear");
+    //NSLog(@"In viewDidAppear");
     //Remove all annotation on the map previously
     NSMutableArray * annotationsToRemove = [self.mapView.annotations mutableCopy] ;
     [annotationsToRemove removeObject:mapView.userLocation] ;
@@ -93,6 +93,10 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
+        CGPoint touchLocation = [gesture locationInView:mapView];
+        touchCoordinate = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
+        NSLog(@"passing (%f,%f)",touchLocation.x,touchLocation.y);
+        NSLog(@"passing2 (%f,%f)",touchCoordinate.latitude,touchCoordinate.longitude);
         [action showInView:self.view];
     }
 }
@@ -106,7 +110,15 @@
 {
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
         //Pass location data
-        
+        AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
+        [addLVC view]; //Force the view to load so I can edit the labels: http://stackoverflow.com/questions/2720662/uilabel-not-updating
+        NSString *str1 = [NSString stringWithFormat:@"%f",touchCoordinate.latitude];
+        NSString *str2 = [NSString stringWithFormat:@"%f",touchCoordinate.longitude];
+        [addLVC.latitudeInput setText:str1];
+        [addLVC.longitudeInput setText:str2];
+        //addLVC.latitudeInput.text = str1;
+        //addLVC.longitudeInput.text = str2;
+        NSLog(@"passing (%@,%@)",addLVC.latitudeInput.text,addLVC.longitudeInput.text);
     }
 }
 
