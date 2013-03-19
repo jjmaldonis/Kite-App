@@ -54,6 +54,7 @@
     //Beloit Long: -89.033031
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
+    [mapView setDelegate:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -71,12 +72,12 @@
         aSpot = [self.dataController.masterList objectAtIndex:i];
         loc.latitude = (double) [aSpot.latitude doubleValue];
         loc.longitude = (double) [aSpot.longitude doubleValue];
-        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc];
+        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
         
         [self.mapView addAnnotation:newAnnotation];
     }
 
-    //Set zoom level
+    //Set zoom level and initial map position to user location
     CLLocationCoordinate2D coord;
     coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
     coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
@@ -96,8 +97,6 @@
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
         CGPoint touchLocation = [gesture locationInView:mapView];
         touchCoordinate = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
-        NSLog(@"passing (%f,%f)",touchLocation.x,touchLocation.y);
-        NSLog(@"passing2 (%f,%f)",touchCoordinate.latitude,touchCoordinate.longitude);
         [action showInView:self.view];
     }
 }
@@ -108,15 +107,25 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    NSLog(@"%@",view);
-    NSLog(@"ANNOTATION SELECTED");
+    NSLog(@"%@ pin selected.",view.annotation.title);
+    
+    //One problem is that this could take a while to search the entire array...
+    ASpot * aSpot;
+    for(NSInteger i = 0; i < [self.dataController countOfList]; i++) {
+        aSpot = [self.dataController objectInListAtIndex:i];
+        if( ([aSpot.longitude doubleValue] == view.annotation.coordinate.longitude) && ([aSpot.latitude doubleValue] == view.annotation.coordinate.latitude) ) {
+            
+            NSString *message = [NSString stringWithFormat:@"City: %@\nState: %@\nDays: %@\nTimes: %@\nWind: %@\nEmail: %@\nPhone: %@",aSpot.city,aSpot.state,aSpot.days,aSpot.times,aSpot.wind,aSpot.email,aSpot.phone];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:aSpot.siteName message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alert show];
+            break;
+        }
+    }
 }
 
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    
-    // Your code here
-    
-    NSLog(@"ANNOTATION SELECTED");
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    NSLog(@"%@ pin deselected.",view.annotation.title);
 }
 
 
@@ -130,9 +139,6 @@
         NSString *str2 = [NSString stringWithFormat:@"%f",touchCoordinate.longitude];
         [addLVC.latitudeInput setText:str1];
         [addLVC.longitudeInput setText:str2];
-        //addLVC.latitudeInput.text = str1;
-        //addLVC.longitudeInput.text = str2;
-        NSLog(@"passing (%@,%@)",addLVC.latitudeInput.text,addLVC.longitudeInput.text);
     }
 }
 
@@ -149,16 +155,6 @@
     if ([[segue identifier] isEqualToString:@"CancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
-}
-
-- (void)mapView:(MKMapView *)mv didAddAnnotationViews:(NSArray *)views
-{
-    NSLog(@"didAddAnnotationViews");
-	MKAnnotationView *annotationView = [views objectAtIndex:0];
-	id <MKAnnotation> mp = [annotationView annotation];
-	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], 1500, 1500);
-	[mv setRegion:region animated:YES];
-	[mv selectAnnotation:mp animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

@@ -12,9 +12,10 @@
 
 @synthesize title, coordinate;
 
-- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d {
+- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot *)spot{
 	title = ttl;
 	coordinate = c2d;
+    aSpot = spot;
 	return self;
 }
 
