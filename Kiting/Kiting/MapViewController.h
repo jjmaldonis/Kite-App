@@ -24,4 +24,8 @@
 
 @property (strong, nonatomic) SpotListDataController *dataController;
 
+@property (nonatomic, retain) IBOutlet UIButton *currLocButton;
+
+- (IBAction)currLocButton;
+
 @end

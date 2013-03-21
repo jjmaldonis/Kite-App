@@ -43,7 +43,12 @@
     //NSLog(@"In MapVC's viewDidLoad");
     [super viewDidLoad];
     
-    mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
+    
+    CGRect mapBounds = self.view.bounds;
+    CGRect  viewRect = CGRectMake(0, 0, 320, 390);
+
+    NSLog(@"%f %f",viewRect.origin.x,viewRect.origin.y);
+    mapView = [[MKMapView alloc] initWithFrame:viewRect];
     mapView.mapType = MKMapTypeHybrid;
     [self.view addSubview:mapView];
     self.mapView.showsUserLocation = YES;
@@ -55,6 +60,8 @@
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
     [mapView setDelegate:self];
+    
+    self.navigationController.toolbarHidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -76,19 +83,36 @@
         
         [self.mapView addAnnotation:newAnnotation];
     }
+    
+    /*while(self.mapView.userLocation.location.coordinate.latitude == 0 && self.mapView.userLocation.location.coordinate.longitude == 0) {
+        CLLocationCoordinate2D coord;
+        coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
+        coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
+        NSLog(@"(%f,%f)",coord.latitude,coord.longitude);
+    }*/
 
     //Set zoom level and initial map position to user location
+    /*CLLocationCoordinate2D coord;
+    coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
+    coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
+    NSLog(@"user loc = (%f,%f)",coord.latitude,coord.longitude);
+    MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
+    MKCoordinateRegion region = {coord, span};
+    [mapView setRegion:region animated:TRUE];*/
+    
+    //Set long press gesture
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self.view addGestureRecognizer:longPress];
+}
+
+- (IBAction)currLocButton {
     CLLocationCoordinate2D coord;
     coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
     coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
     NSLog(@"user loc = (%f,%f)",coord.latitude,coord.longitude);
     MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
     MKCoordinateRegion region = {coord, span};
-    [mapView setRegion:region animated:TRUE];
-    
-    //Set long press gesture
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [self.view addGestureRecognizer:longPress];
+    [self.mapView setRegion:region animated:TRUE];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gesture

@@ -26,6 +26,7 @@
 		0F6E08FC16CAC8E800277C07 /* KitingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E08FB16CAC8E800277C07 /* KitingTests.m */; };
 		0F6E090716CACDDD00277C07 /* ASpot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090616CACDDD00277C07 /* ASpot.m */; };
 		0F6E090A16CAEA1600277C07 /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E090916CAEA1500277C07 /* AddLocationViewController.m */; };
+		0FE1422F16FB69F1001680EB /* noun_project_768.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0FE1422E16FB69F1001680EB /* noun_project_768.svg */; };
 		0FE63B8F16D30FBB00B2C09B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE63B8E16D30FBB00B2C09B /* MapKit.framework */; };
 		0FE63C0816D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
 		0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
@@ -73,6 +74,7 @@
 		0F6E090616CACDDD00277C07 /* ASpot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASpot.m; sourceTree = "<group>"; };
 		0F6E090816CAEA1500277C07 /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
 		0F6E090916CAEA1500277C07 /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
+		0FE1422E16FB69F1001680EB /* noun_project_768.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = noun_project_768.svg; sourceTree = "<group>"; };
 		0FE63B8E16D30FBB00B2C09B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAnnotation.h; sourceTree = "<group>"; };
 		0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAnnotation.m; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		0F6E08CE16CAC8E100277C07 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0FE1422E16FB69F1001680EB /* noun_project_768.svg */,
 				0F6E08CF16CAC8E100277C07 /* Kiting-Info.plist */,
 				0F6E08D016CAC8E200277C07 /* InfoPlist.strings */,
 				0F6E08D316CAC8E200277C07 /* main.m */,
@@ -273,6 +276,7 @@
 				0F6E08DE16CAC8E300277C07 /* Default-568h@2x.png in Resources */,
 				0F6E08E116CAC8E400277C07 /* MainStoryboard.storyboard in Resources */,
 				0F060BCF16D688DD000E7102 /* Jason is a n00b in Resources */,
+				0FE1422F16FB69F1001680EB /* noun_project_768.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

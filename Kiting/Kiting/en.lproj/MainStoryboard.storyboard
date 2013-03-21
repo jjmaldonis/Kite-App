@@ -12,6 +12,10 @@
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wxP-er-VaE">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="12" kind="relationship" relationship="rootViewController" id="19"/>
                     </connections>
@@ -23,19 +27,28 @@
         <!--Map View Controller - Map VC-->
         <scene sceneID="oPC-PK-Ig8">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="Map VC" title="Map VC" wantsFullScreenLayout="YES" id="Tby-Ra-a87" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwN-gJ-UQx">
                         <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Fme-Tv-VcB"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="XU7-PQ-CpC">
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vlJ-Fy-4Lq"/>
+                                    <barButtonItem title="Go to Current Location" id="n2E-p5-VtT">
+                                        <connections>
+                                            <action selector="currLocButton" destination="Tby-Ra-a87" id="FzK-uM-rXy"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Fme-Tv-VcB" firstAttribute="bottom" secondItem="mwN-gJ-UQx" secondAttribute="bottom" type="default" id="1v7-df-eVv"/>
-                            <constraint firstItem="Fme-Tv-VcB" firstAttribute="top" secondItem="mwN-gJ-UQx" secondAttribute="top" type="default" id="SVM-Fs-TOf"/>
-                            <constraint firstItem="Fme-Tv-VcB" firstAttribute="trailing" secondItem="mwN-gJ-UQx" secondAttribute="trailing" type="default" id="kQh-ua-Jk5"/>
-                            <constraint firstItem="Fme-Tv-VcB" firstAttribute="leading" secondItem="mwN-gJ-UQx" secondAttribute="leading" type="default" id="rm8-Np-lhM"/>
+                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="trailing" secondItem="mwN-gJ-UQx" secondAttribute="trailing" type="default" id="7eH-fJ-4Mc"/>
+                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="bottom" secondItem="mwN-gJ-UQx" secondAttribute="bottom" type="default" id="EY3-DF-sWb"/>
+                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="leading" secondItem="mwN-gJ-UQx" secondAttribute="leading" type="default" id="pMW-Oo-mQw"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="u1f-Ha-jki"/>
@@ -43,7 +56,6 @@
                         <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMap" id="KGk-sJ-43e"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-851" y="735"/>
         </scene>
@@ -544,7 +556,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="currLocButton"/>
                 <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="outlet" name="currLocButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
