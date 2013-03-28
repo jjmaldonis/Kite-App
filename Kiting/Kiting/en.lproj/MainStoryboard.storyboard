@@ -27,7 +27,6 @@
         <!--Map View Controller - Map VC-->
         <scene sceneID="oPC-PK-Ig8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="Map VC" title="Map VC" wantsFullScreenLayout="YES" id="Tby-Ra-a87" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwN-gJ-UQx">
                         <rect key="frame" x="0.0" y="20" width="320" height="499"/>
@@ -38,7 +37,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="vlJ-Fy-4Lq"/>
                                     <barButtonItem title="Go to Current Location" id="n2E-p5-VtT">
                                         <connections>
-                                            <action selector="currLocButton" destination="Tby-Ra-a87" id="FzK-uM-rXy"/>
+                                            <action selector="currLocButtonAction" destination="Tby-Ra-a87" id="3QI-Ya-f2p"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -56,6 +55,7 @@
                         <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMap" id="KGk-sJ-43e"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-851" y="735"/>
         </scene>
@@ -556,10 +556,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="currLocButton"/>
+                <relationship kind="action" name="currLocButtonAction"/>
                 <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="outlet" name="currLocButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

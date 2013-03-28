@@ -54,6 +54,8 @@
     }
     else{
         self.siteNameInput.text = @"Temp Site Name";
+        self.latitudeInput.text = [NSString stringWithFormat:@"%f",self.latitude];
+        self.longitudeInput.text = [NSString stringWithFormat:@"%f",self.longitude];
     }
     
     // Uncomment the following line to preserve selection between presentations.

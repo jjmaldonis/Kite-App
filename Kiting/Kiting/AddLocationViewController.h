@@ -11,7 +11,10 @@
 @class ASpot;
 @class SpotListDataController;
 
-@interface AddLocationViewController : UITableViewController <UITextFieldDelegate>
+@interface AddLocationViewController : UITableViewController <UITextFieldDelegate> {
+    
+
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *siteNameInput;
 @property (weak, nonatomic) IBOutlet UITextField *cityInput;
@@ -23,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *windInput;
 @property (weak, nonatomic) IBOutlet UITextField *emailInput;
 @property (weak, nonatomic) IBOutlet UITextField *phoneInput;
+
+@property (nonatomic) double latitude;
+@property (nonatomic) double longitude;
 
 @property (strong, nonatomic) ASpot *aSpot;
 

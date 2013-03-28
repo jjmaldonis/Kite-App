@@ -22,15 +22,16 @@
 
 @implementation MapViewController
 
-@synthesize mapView;
+//@synthesize mapView;
 
 - (void)awakeFromNib
 {
-    
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -40,72 +41,57 @@
 
 - (void)viewDidLoad
 {
+
     //NSLog(@"In MapVC's viewDidLoad");
     [super viewDidLoad];
     
-    
-    CGRect mapBounds = self.view.bounds;
     CGRect  viewRect = CGRectMake(0, 0, 320, 390);
-
-    NSLog(@"%f %f",viewRect.origin.x,viewRect.origin.y);
-    mapView = [[MKMapView alloc] initWithFrame:viewRect];
-    mapView.mapType = MKMapTypeHybrid;
-    [self.view addSubview:mapView];
+    
+    self.mapView = [[MKMapView alloc] initWithFrame:viewRect];
+    self.mapView.mapType = MKMapTypeHybrid;
+    [self.view addSubview:self.mapView];
     self.mapView.showsUserLocation = YES;
     
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
-
+    
     //Beloit Lat: 42.507793
     //Beloit Long: -89.033031
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
-    [mapView setDelegate:self];
+    [self.mapView setDelegate:self];
     
     self.navigationController.toolbarHidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     //NSLog(@"In viewDidAppear");
-    //Remove all annotation on the map previously
-    NSMutableArray * annotationsToRemove = [self.mapView.annotations mutableCopy] ;
-    [annotationsToRemove removeObject:mapView.userLocation] ;
-    [self.mapView removeAnnotations:annotationsToRemove] ;
     
-    //Add all the spots in the list
+    //Get all the annotations that are already on the map
+    NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
+    
+    //Add all the spots in the list if they aren't already there
     ASpot *aSpot;
     MapViewAnnotation *newAnnotation;
     CLLocationCoordinate2D loc;
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController.masterList objectAtIndex:i];
-        loc.latitude = (double) [aSpot.latitude doubleValue];
-        loc.longitude = (double) [aSpot.longitude doubleValue];
-        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
         
-        [self.mapView addAnnotation:newAnnotation];
+        if( [mapAnnotations indexOfObject:aSpot] == NSNotFound ) {
+        
+            loc.latitude = (double) [aSpot.latitude doubleValue];
+            loc.longitude = (double) [aSpot.longitude doubleValue];
+            newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+        
+            [self.mapView addAnnotation:newAnnotation];
+        }
     }
-    
-    /*while(self.mapView.userLocation.location.coordinate.latitude == 0 && self.mapView.userLocation.location.coordinate.longitude == 0) {
-        CLLocationCoordinate2D coord;
-        coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
-        coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
-        NSLog(@"(%f,%f)",coord.latitude,coord.longitude);
-    }*/
-
-    //Set zoom level and initial map position to user location
-    /*CLLocationCoordinate2D coord;
-    coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
-    coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
-    NSLog(@"user loc = (%f,%f)",coord.latitude,coord.longitude);
-    MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
-    MKCoordinateRegion region = {coord, span};
-    [mapView setRegion:region animated:TRUE];*/
     
     //Set long press gesture
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.view addGestureRecognizer:longPress];
 }
 
-- (IBAction)currLocButton {
+- (IBAction)currLocButtonAction {
     CLLocationCoordinate2D coord;
     coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
     coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
@@ -119,7 +105,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
-        CGPoint touchLocation = [gesture locationInView:mapView];
+        CGPoint touchLocation = [gesture locationInView:self.mapView];
         touchCoordinate = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
         [action showInView:self.view];
     }
@@ -137,6 +123,7 @@
     ASpot * aSpot;
     for(NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController objectInListAtIndex:i];
+        
         if( ([aSpot.longitude doubleValue] == view.annotation.coordinate.longitude) && ([aSpot.latitude doubleValue] == view.annotation.coordinate.latitude) ) {
             
             NSString *message = [NSString stringWithFormat:@"City: %@\nState: %@\nDays: %@\nTimes: %@\nWind: %@\nEmail: %@\nPhone: %@",aSpot.city,aSpot.state,aSpot.days,aSpot.times,aSpot.wind,aSpot.email,aSpot.phone];
@@ -158,11 +145,9 @@
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
         //Pass location data
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-        [addLVC view]; //Force the view to load so I can edit the labels: http://stackoverflow.com/questions/2720662/uilabel-not-updating
-        NSString *str1 = [NSString stringWithFormat:@"%f",touchCoordinate.latitude];
-        NSString *str2 = [NSString stringWithFormat:@"%f",touchCoordinate.longitude];
-        [addLVC.latitudeInput setText:str1];
-        [addLVC.longitudeInput setText:str2];
+        
+        addLVC.latitude = touchCoordinate.latitude;
+        addLVC.longitude = touchCoordinate.longitude;
     }
 }
 

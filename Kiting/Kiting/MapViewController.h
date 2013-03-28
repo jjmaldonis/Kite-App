@@ -13,19 +13,14 @@
 @class SpotListDataController;
 
 @interface MapViewController : UIViewController <UIActionSheetDelegate, MKMapViewDelegate> {
-    
-    MKMapView *mapView;
-    MKPlacemark *mPlacemark;
-    CLLocationCoordinate2D location;
+
     CLLocationCoordinate2D touchCoordinate;
 }
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
 
 @property (strong, nonatomic) SpotListDataController *dataController;
 
-@property (nonatomic, retain) IBOutlet UIButton *currLocButton;
-
-- (IBAction)currLocButton;
+- (IBAction)currLocButtonAction;
 
 @end
