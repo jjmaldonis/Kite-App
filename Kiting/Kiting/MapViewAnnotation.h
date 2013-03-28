@@ -11,13 +11,12 @@
 #import "ASpot.h"
 
 @interface MapViewAnnotation : NSObject <MKAnnotation> {
-    NSString *title;
-	CLLocationCoordinate2D coordinate;
-    ASpot* aSpot;
+
 }
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) ASpot *aSpot;
 
 - (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot*)spot;
 

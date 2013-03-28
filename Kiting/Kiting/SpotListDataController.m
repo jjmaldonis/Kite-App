@@ -25,17 +25,18 @@
 
 - (void)initWithAllData:(NSArray *)data{
     
-     ASpot *aSpot;
-     aSpot.siteName = [data objectAtIndex:0];
-     aSpot.city = [data objectAtIndex:1];
-     aSpot.state = [data objectAtIndex:2];
-     aSpot.longitude = [data objectAtIndex:3];
-     aSpot.latitude = [data objectAtIndex:4];
-     aSpot.days = [data objectAtIndex:5];
-     aSpot.times = [data objectAtIndex:6];
-     aSpot.wind = [data objectAtIndex:7];
-     aSpot.email = [data objectAtIndex:8];
-     aSpot.phone = [data objectAtIndex:9];
+    ASpot *aSpot;
+    aSpot.siteName = [data objectAtIndex:0];
+    aSpot.city = [data objectAtIndex:1];
+    aSpot.state = [data objectAtIndex:2];
+    aSpot.longitude = [data objectAtIndex:3];
+    aSpot.latitude = [data objectAtIndex:4];
+    aSpot.days = [data objectAtIndex:5];
+    aSpot.times = [data objectAtIndex:6];
+    aSpot.wind = [data objectAtIndex:7];
+    aSpot.name   = [data objectAtIndex:8];
+    aSpot.email = [data objectAtIndex:9];
+    aSpot.phone = [data objectAtIndex:10];
     
     [self.masterList insertObject:aSpot atIndex:0];
     

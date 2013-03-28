@@ -22,8 +22,6 @@
 
 @implementation MapViewController
 
-//@synthesize mapView;
-
 - (void)awakeFromNib
 {
 
@@ -70,30 +68,40 @@
     NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
     
     //Add all the spots in the list if they aren't already there
+    //(We must convert the spot to an annotation to search for it in the mapAnnotations)
     ASpot *aSpot;
-    MapViewAnnotation *newAnnotation;
+    MapViewAnnotation *anAnnotation;
     CLLocationCoordinate2D loc;
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController.masterList objectAtIndex:i];
+        
         loc.latitude = (double) [aSpot.latitude doubleValue];
         loc.longitude = (double) [aSpot.longitude doubleValue];
-        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+
+        if( [mapAnnotations indexOfObject:anAnnotation] == NSNotFound ) {
         
-        
-        if( [mapAnnotations indexOfObject:newAnnotation] == NSNotFound ) {
-        
-            [self.mapView addAnnotation:newAnnotation];
+            [self.mapView addAnnotation:anAnnotation];
         }
     }
     
-    for(NSInteger i = 0; i < [mapAnnotations count]; i++) {
-        aSpot = [mapAnnotations objectAtIndex:i];
-        
-        NSLog(@"Searching for %@",aSpot.siteName);
+    //Call this again to update the array
+    mapAnnotations = [self.mapView.annotations mutableCopy];
+
+    //Remove any spots that have been deleted by checking them all against the dataController
+    //(We must convert an annotation to a spot to search for it in the dataController)
+    NSInteger numAnnotes = [mapAnnotations count];
+    for(NSInteger i = 0; i < numAnnotes -1; i++) {
+    //We subtract 1 here because the Current Location is at the last mapAnnotation index.
+        anAnnotation = [mapAnnotations objectAtIndex:i];
+        aSpot = anAnnotation.aSpot;
         if( [self.dataController.masterList indexOfObject:aSpot] == NSNotFound ) {
-            [mapAnnotations removeObjectAtIndex:i];
+            [self.mapView removeAnnotation:[mapAnnotations objectAtIndex:i]];
         }
     }
+    
+    //Call this again to update the array
+    mapAnnotations = [self.mapView.annotations mutableCopy];
     
     //Set long press gesture
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
@@ -104,7 +112,6 @@
     CLLocationCoordinate2D coord;
     coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
     coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
-    NSLog(@"user loc = (%f,%f)",coord.latitude,coord.longitude);
     MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
     MKCoordinateRegion region = {coord, span};
     [self.mapView setRegion:region animated:TRUE];
@@ -131,6 +138,15 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"%@ pin selected.",view.annotation.title);
     
+    view.canShowCallout = YES;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [button addTarget:self action:@selector(goToViewDetailsView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    /*
+    //Display a popup showing the information for the selected annotation.
     //One problem is that this could take a while to search the entire array...
     ASpot * aSpot;
     for(NSInteger i = 0; i < [self.dataController countOfList]; i++) {
@@ -144,13 +160,16 @@
             [alert show];
             break;
         }
-    }
+    }*/
+}
+
+-(void) goToViewDetailsView:(UIButton*)sender {
+    NSLog(@"In goToViewDetailsView function.");
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
-    NSLog(@"%@ pin deselected.",view.annotation.title);
+    //NSLog(@"%@ pin deselected.",view.annotation.title);
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

@@ -336,8 +336,41 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="How should people contact you?" id="BG7-2L-YHy">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Email" id="UFR-YO-QTa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Email" id="mFb-m5-idj">
                                         <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iue-gi-QOJ">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="eKD-VY-NVL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qvq-5B-9ls">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="DnB-fW-I96" id="a05-Zm-bzB"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Qvq-5B-9ls" secondAttribute="trailing" constant="20" type="default" id="Bdt-Kx-bs8"/>
+                                            <constraint firstItem="Qvq-5B-9ls" firstAttribute="leading" secondItem="iue-gi-QOJ" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="De8-cM-JW8"/>
+                                            <constraint firstItem="iue-gi-QOJ" firstAttribute="leading" secondItem="mFb-m5-idj" secondAttribute="leading" constant="20" type="default" id="cZJ-Tv-9l5"/>
+                                            <constraint firstItem="iue-gi-QOJ" firstAttribute="top" secondItem="mFb-m5-idj" secondAttribute="top" constant="11" id="nS5-eS-fR4"/>
+                                            <constraint firstItem="Qvq-5B-9ls" firstAttribute="centerY" secondItem="mFb-m5-idj" secondAttribute="centerY" type="default" id="td7-6g-9pt"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Email" id="UFR-YO-QTa">
+                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -370,7 +403,7 @@
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Phone" id="HK3-UI-zF6">
-                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -428,6 +461,7 @@
                         <outlet property="emailInput" destination="mLn-uX-zTw" id="vfv-LS-TLc"/>
                         <outlet property="latitudeInput" destination="aID-xp-Svk" id="KI0-qy-rUa"/>
                         <outlet property="longitudeInput" destination="L75-Xx-Slv" id="Ik6-dR-OgW"/>
+                        <outlet property="nameInput" destination="Qvq-5B-9ls" id="1tS-DK-90Q"/>
                         <outlet property="phoneInput" destination="T18-fZ-Omn" id="7rO-0F-Da5"/>
                         <outlet property="siteNameInput" destination="qke-nu-XkK" id="hCO-od-86P"/>
                         <outlet property="stateInput" destination="Sch-UN-RqN" id="8WD-ch-X1R"/>
@@ -537,6 +571,7 @@
                 <relationship kind="outlet" name="emailInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="latitudeInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="longitudeInput" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="phoneInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="siteNameInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="stateInput" candidateClass="UITextField"/>
@@ -555,9 +590,7 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="currLocButtonAction"/>
-                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

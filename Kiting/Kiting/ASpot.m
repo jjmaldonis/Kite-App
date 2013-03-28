@@ -20,6 +20,7 @@
     [aCoder encodeObject:self.days forKey:@"days"];
     [aCoder encodeObject:self.times forKey:@"times"];
     [aCoder encodeObject:self.wind forKey:@"wind"];
+    [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.email forKey:@"email"];
     [aCoder encodeObject:self.phone forKey:@"phone"];
 }
@@ -34,38 +35,11 @@
         [self setDays:[aDecoder decodeObjectForKey:@"days"]];
         [self setTimes:[aDecoder decodeObjectForKey:@"times"]];
         [self setWind:[aDecoder decodeObjectForKey:@"wind"]];
+        [self setName:[aDecoder decodeObjectForKey:@"name"]];
         [self setEmail:[aDecoder decodeObjectForKey:@"email"]];
         [self setPhone:[aDecoder decodeObjectForKey:@"phone"]];
     }
     return self;
 }
-/*
--(void) setSiteName:(NSString *)siteName {
-    self.siteName = siteName;
-}
--(void) setcity:(NSString *)city {
-    self.city = city;
-}
--(void) setState:(NSString *)state {
-    self.state = state;
-}
--(void) setLongitude:(NSString *)longitude {
-    self.longitude = longitude;
-}
--(void) setLatitude:(NSString *)latitude {
-    self.latitude = latitude;
-}
--(void) setDays:(NSString *)days {
-    self.siteName = days;
-}
--(void) setTimes:(NSString *)times {
-    self.times = times;
-}
--(void) setEmail:(NSString *)email {
-    self.email = email;
-}
--(void) setPhone:(NSString *)phone {
-    self.phone = phone;
-}*/
 
 @end

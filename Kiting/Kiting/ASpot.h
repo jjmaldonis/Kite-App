@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *days;
 @property (nonatomic, copy) NSString *times;
 @property (nonatomic, copy) NSString *wind;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *phone;
 

@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *daysInput;
 @property (weak, nonatomic) IBOutlet UITextField *timesInput;
 @property (weak, nonatomic) IBOutlet UITextField *windInput;
+@property (weak, nonatomic) IBOutlet UITextField *nameInput;
 @property (weak, nonatomic) IBOutlet UITextField *emailInput;
 @property (weak, nonatomic) IBOutlet UITextField *phoneInput;
 

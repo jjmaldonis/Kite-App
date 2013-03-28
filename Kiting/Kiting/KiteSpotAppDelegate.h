@@ -16,6 +16,4 @@
 
 @property (strong, nonatomic) SpotListDataController *dataController;
 
-//@property (nonatomic, copy) NSMutableArray *masterList;
-
 @end

@@ -49,6 +49,7 @@
         self.daysInput.text = self.aSpot.days;
         self.timesInput.text = self.aSpot.times;
         self.windInput.text = self.aSpot.wind;
+        self.nameInput.text = self.aSpot.name;
         self.emailInput.text = self.aSpot.email;
         self.phoneInput.text = self.aSpot.phone;
     }
@@ -151,6 +152,7 @@
         self.aSpot.days = self.daysInput.text;
         self.aSpot.times = self.timesInput.text;
         self.aSpot.wind = self.windInput.text;
+        self.aSpot.name = self.nameInput.text;
         self.aSpot.email = self.emailInput.text;
         self.aSpot.phone = self.phoneInput.text;
     }
