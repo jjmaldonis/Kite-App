@@ -75,14 +75,23 @@
     CLLocationCoordinate2D loc;
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController.masterList objectAtIndex:i];
+        loc.latitude = (double) [aSpot.latitude doubleValue];
+        loc.longitude = (double) [aSpot.longitude doubleValue];
+        newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
         
-        if( [mapAnnotations indexOfObject:aSpot] == NSNotFound ) {
         
-            loc.latitude = (double) [aSpot.latitude doubleValue];
-            loc.longitude = (double) [aSpot.longitude doubleValue];
-            newAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+        if( [mapAnnotations indexOfObject:newAnnotation] == NSNotFound ) {
         
             [self.mapView addAnnotation:newAnnotation];
+        }
+    }
+    
+    for(NSInteger i = 0; i < [mapAnnotations count]; i++) {
+        aSpot = [mapAnnotations objectAtIndex:i];
+        
+        NSLog(@"Searching for %@",aSpot.siteName);
+        if( [self.dataController.masterList indexOfObject:aSpot] == NSNotFound ) {
+            [mapAnnotations removeObjectAtIndex:i];
         }
     }
     
@@ -107,13 +116,16 @@
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
         CGPoint touchLocation = [gesture locationInView:self.mapView];
         touchCoordinate = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
-        [action showInView:self.view];
+        [action showFromTabBar:self.tabBarController.tabBar];
+        
     }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
+    if(buttonIndex == 0) {
+        [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
@@ -154,7 +166,9 @@
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
+        if (![[self presentedViewController] isBeingDismissed]){
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
     }
 }
 

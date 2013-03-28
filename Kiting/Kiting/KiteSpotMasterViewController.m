@@ -100,7 +100,12 @@
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         
         [[self tableView] reloadData];
-        [self dismissViewControllerAnimated:YES completion:NULL];
+        
+        if (![[self presentedViewController] isBeingDismissed]){
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+
+        //[self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
@@ -122,8 +127,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.dataController.masterList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert)
-    {
+        
+        //Remove annotation from map.
     }
 }
 
