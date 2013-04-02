@@ -20,6 +20,4 @@
 
 - (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot*)spot;
 
-
-
 @end

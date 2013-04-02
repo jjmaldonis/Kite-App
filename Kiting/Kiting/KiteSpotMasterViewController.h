@@ -15,11 +15,10 @@
 @interface KiteSpotMasterViewController : UITableViewController
 
 @property (strong, nonatomic) ASpot *aSpot;
-@property (weak, nonatomic) IBOutlet UILabel *siteNameLabel;
 
 @property (strong, nonatomic) SpotListDataController *dataController;
 
-- (IBAction)done:(UIStoryboardSegue *)segue;
-- (IBAction)cancel:(UIStoryboardSegue *)segue;
+//- (IBAction)done:(UIStoryboardSegue *)segue;
+//- (IBAction)cancel:(UIStoryboardSegue *)segue;
 
 @end

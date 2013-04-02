@@ -36,9 +36,11 @@
 {
     //NSLog(@"In Location viewDidLoad");
     [super viewDidLoad];
-    
+
+    //Set the data controller
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
 
+    //If a spot was assigned in the prepareForSegue then we need to set information in this view; if not, give some default information depending on what was provided
     if(self.aSpot)
     {
         self.siteNameInput.text = self.aSpot.siteName;
@@ -64,6 +66,7 @@
         }
     }
 
+    //self.allowEditing is set in the prepareForSegue functions in the view controller classes
     if(!self.allowEditing){
         [self.siteNameInput setUserInteractionEnabled:NO];
         [self.cityInput setUserInteractionEnabled:NO];
@@ -91,7 +94,6 @@
         [self.phoneInput setUserInteractionEnabled:YES];
     }
     
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
 
@@ -110,6 +112,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
+    //When they click the done button we need to do some data checking to make sure they put in usable data.
     if ([identifier isEqualToString:@"ReturnInput"]) {
         
         //Make sure there is a name, latitude, and longitude.
@@ -165,9 +168,8 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    //If we get to this point from the "Done" button we need to update our spot or add it to the dataController if it is a new spot
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
-        
         if(!self.aSpot)
         {
             self.aSpot = [[ASpot alloc] init];

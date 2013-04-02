@@ -15,13 +15,11 @@
 @class SpotListDataController;
 
 @interface MapViewController : UIViewController <UIActionSheetDelegate, MKMapViewDelegate> {
-
     CLLocationCoordinate2D touchCoordinate;
     ASpot *selectedSpot;
 }
 
 @property (nonatomic, strong) MKMapView *mapView;
-
 @property (strong, nonatomic) SpotListDataController *dataController;
 
 - (IBAction)currLocButtonAction;

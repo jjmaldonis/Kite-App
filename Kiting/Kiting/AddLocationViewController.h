@@ -11,10 +11,7 @@
 @class ASpot;
 @class SpotListDataController;
 
-@interface AddLocationViewController : UITableViewController <UITextFieldDelegate> {
-    
-
-}
+@interface AddLocationViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *siteNameInput;
 @property (weak, nonatomic) IBOutlet UITextField *cityInput;

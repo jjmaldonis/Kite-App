@@ -55,8 +55,7 @@
     
     //Get the list of all the spots and save the list
     NSArray *list = [self.dataController getMasterList];
-    /*BOOL result = */[NSKeyedArchiver archiveRootObject:list toFile:plistPath];
-    //NSLog(@"Write to file = %c",result);
+    [NSKeyedArchiver archiveRootObject:list toFile:plistPath];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

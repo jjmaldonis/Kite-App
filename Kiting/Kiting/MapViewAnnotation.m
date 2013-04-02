@@ -10,13 +10,8 @@
 
 @implementation MapViewAnnotation
 
-@synthesize title, coordinate;
-
 - (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot *)spot{
 	self.title = ttl;
-    
-    
-    
 	self.coordinate = c2d;
     self.aSpot = spot;
 	return self;

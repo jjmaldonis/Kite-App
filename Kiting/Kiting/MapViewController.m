@@ -39,17 +39,17 @@
 
 - (void)viewDidLoad
 {
-
     //NSLog(@"In MapVC's viewDidLoad");
     [super viewDidLoad];
     
+    //Make the map rectangle (take into account the button bar) and display it for the user.
     CGRect  viewRect = CGRectMake(0, 0, 320, 390);
-    
     self.mapView = [[MKMapView alloc] initWithFrame:viewRect];
     self.mapView.mapType = MKMapTypeHybrid;
     [self.view addSubview:self.mapView];
     self.mapView.showsUserLocation = YES;
     
+    //Set the data controller
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
     
     //Beloit Lat: 42.507793
@@ -57,14 +57,12 @@
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
     [self.mapView setDelegate:self];
-    
-    self.navigationController.toolbarHidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     //NSLog(@"In viewDidAppear");
     
-    //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
+    //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes a time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
     
     //Remove all the annotations from the map.
     [self.mapView removeAnnotations:self.mapView.annotations];
@@ -124,28 +122,26 @@
     mapAnnotations = [self.mapView.annotations mutableCopy];
     */
      
-    //Set long press gesture
+    //Set long press gesture to add a location at the pressed location
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.view addGestureRecognizer:longPress];
 }
 
 - (IBAction)currLocButtonAction {
-    CLLocationCoordinate2D coord;
-    coord.latitude = self.mapView.userLocation.location.coordinate.latitude;
-    coord.longitude = self.mapView.userLocation.location.coordinate.longitude;
+    //Create the span width and set viewing region around the current location
     MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
-    MKCoordinateRegion region = {coord, span};
+    MKCoordinateRegion region = {self.mapView.userLocation.location.coordinate, span};
     [self.mapView setRegion:region animated:TRUE];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gesture
 {
+    //Add a popup menu with buttons on long press allowing you to add a spot at the touched location
     if (gesture.state == UIGestureRecognizerStateBegan) {
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Add a new spot here?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add!",nil];
         CGPoint touchLocation = [gesture locationInView:self.mapView];
         touchCoordinate = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
         [action showFromTabBar:self.tabBarController.tabBar];
-        
     }
 }
 
@@ -157,21 +153,20 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    NSLog(@"%@ pin selected.",view.annotation.title);
+    //NSLog(@"%@ pin selected.",view.annotation.title);
     
+    //Set the spot selected so that if they click the details button we know which spot they selected.
     selectedSpot = ((MapViewAnnotation *) view.annotation).aSpot;
     
+    //Make a button that allows them to go to the details view (uneditable).
     view.canShowCallout = YES;
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [button addTarget:self action:@selector(goToViewDetailsView:) forControlEvents:UIControlEventTouchUpInside];
-    
     view.rightCalloutAccessoryView = button;
 }
 
 -(void) goToViewDetailsView:(id)sender {
     //NSLog(@"In goToViewDetailsView function.");
-
     [self performSegueWithIdentifier: @"goToViewOnly" sender: self];
 }
 
@@ -181,9 +176,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-   
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
-        //Pass location data
+        //Pass location data and enable editing
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         
         addLVC.latitude = touchCoordinate.latitude;
@@ -192,7 +186,7 @@
     }
     
     if ([[segue identifier] isEqualToString:@"goToViewOnly"]) {
-        //Pass all data
+        //Pass all data and disable editing
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.dataController.masterList indexOfObject:selectedSpot]];
         addLVC.aSpot = cellASpot;
@@ -211,9 +205,10 @@
 
 - (IBAction)cancel:(UIStoryboardSegue *)segue
 {
-    //NSLog(@"In MVC's cance:");
     if ([[segue identifier] isEqualToString:@"CancelInput"]) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
+        if (![[self presentedViewController] isBeingDismissed]){
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
     }
 }
 

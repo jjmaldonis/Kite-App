@@ -19,35 +19,27 @@
 #import "KiteSpotAppDelegate.h"
 
 
-@interface KiteSpotMasterViewController () {
-    
-    
-    
-}
+@interface KiteSpotMasterViewController ()
 @end
 
 @implementation KiteSpotMasterViewController
-
-// I should add a delete button that then deletes the spot from the database as well
 
 - (void)awakeFromNib
 {
     //NSLog(@"In MasterVC's awakeFromNib");
     [super awakeFromNib];
-    
-
 }
 
 - (void)viewDidLoad
 {
     //NSLog(@"In MVC's viewDidLoad");
-    //NSLog(@"my loc = %@",self.mapView.userLocation);
-
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    //Make a standard edit button
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
+    //Set the data controller
     self.dataController = ((KiteSpotAppDelegate *) [[UIApplication sharedApplication] delegate]).dataController;
 }
 
@@ -100,7 +92,7 @@
     }
 }
 
-- (IBAction)done:(UIStoryboardSegue *)segue
+/*- (IBAction)done:(UIStoryboardSegue *)segue
 {
     if ([[segue identifier] isEqualToString:@"ReturnInput"]) {
         
@@ -119,7 +111,7 @@
     if ([[segue identifier] isEqualToString:@"CancelInput"]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
-}
+}*/
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,8 +124,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.dataController.masterList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        //Remove annotation from map.
     }
 }
 
