@@ -92,6 +92,11 @@
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
         addLVC.aSpot = cellASpot;
+        addLVC.allowEditing = YES;
+    }
+    if ([[segue identifier] isEqualToString:@"createNewSpot"]) {
+        AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
+        addLVC.allowEditing = YES;
     }
 }
 

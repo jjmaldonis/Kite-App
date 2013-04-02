@@ -53,11 +53,44 @@
         self.emailInput.text = self.aSpot.email;
         self.phoneInput.text = self.aSpot.phone;
     }
-    else{
+    else {
         self.siteNameInput.text = @"Temp Site Name";
-        self.latitudeInput.text = [NSString stringWithFormat:@"%f",self.latitude];
-        self.longitudeInput.text = [NSString stringWithFormat:@"%f",self.longitude];
+        
+        if(self.latitude){
+            self.latitudeInput.text = [NSString stringWithFormat:@"%f",self.latitude];
+        }
+        if(self.longitude){
+            self.longitudeInput.text = [NSString stringWithFormat:@"%f",self.longitude];
+        }
     }
+
+    if(!self.allowEditing){
+        [self.siteNameInput setUserInteractionEnabled:NO];
+        [self.cityInput setUserInteractionEnabled:NO];
+        [self.stateInput setUserInteractionEnabled:NO];
+        [self.longitudeInput setUserInteractionEnabled:NO];
+        [self.latitudeInput setUserInteractionEnabled:NO];
+        [self.daysInput setUserInteractionEnabled:NO];
+        [self.timesInput setUserInteractionEnabled:NO];
+        [self.windInput setUserInteractionEnabled:NO];
+        [self.nameInput setUserInteractionEnabled:NO];
+        [self.emailInput setUserInteractionEnabled:NO];
+        [self.phoneInput setUserInteractionEnabled:NO];
+    }
+    else {
+        [self.siteNameInput setUserInteractionEnabled:YES];
+        [self.cityInput setUserInteractionEnabled:YES];
+        [self.stateInput setUserInteractionEnabled:YES];
+        [self.longitudeInput setUserInteractionEnabled:YES];
+        [self.latitudeInput setUserInteractionEnabled:YES];
+        [self.daysInput setUserInteractionEnabled:YES];
+        [self.timesInput setUserInteractionEnabled:YES];
+        [self.windInput setUserInteractionEnabled:YES];
+        [self.nameInput setUserInteractionEnabled:YES];
+        [self.emailInput setUserInteractionEnabled:YES];
+        [self.phoneInput setUserInteractionEnabled:YES];
+    }
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -140,9 +173,6 @@
             self.aSpot = [[ASpot alloc] init];
             [self.dataController addSpot:self.aSpot];
         }
-        else
-        {
-        }
 
         self.aSpot.siteName = self.siteNameInput.text;
         self.aSpot.city = self.cityInput.text;
@@ -156,7 +186,6 @@
         self.aSpot.email = self.emailInput.text;
         self.aSpot.phone = self.phoneInput.text;
     }
-    
 }
 
 @end

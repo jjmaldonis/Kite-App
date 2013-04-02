@@ -53,6 +53,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="u1f-Ha-jki"/>
                     <connections>
                         <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMap" id="KGk-sJ-43e"/>
+                        <segue destination="R7h-ly-EEx" kind="modal" identifier="goToViewOnly" id="ttI-0k-6mc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,7 +515,7 @@
                     <navigationItem key="navigationItem" title="Add Spot" id="36">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ovj-Lc-wZo">
                             <connections>
-                                <segue destination="R7h-ly-EEx" kind="modal" identifier="" id="4nF-T0-OHV"/>
+                                <segue destination="R7h-ly-EEx" kind="modal" identifier="createNewSpot" id="4nF-T0-OHV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -590,7 +591,9 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="currLocButtonAction"/>
+                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
@@ -606,6 +609,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KGk-sJ-43e"/>
+        <segue reference="4nF-T0-OHV"/>
     </inferredMetricsTieBreakers>
 </document>

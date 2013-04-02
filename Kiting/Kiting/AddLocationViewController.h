@@ -34,6 +34,7 @@
 @property (strong, nonatomic) ASpot *aSpot;
 
 @property (nonatomic, assign) BOOL isNew;
+@property (nonatomic, assign) BOOL allowEditing;
 
 @property (strong, nonatomic) SpotListDataController *dataController;
 

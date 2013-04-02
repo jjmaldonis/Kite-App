@@ -68,7 +68,7 @@
     NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
     
     //Add all the spots in the list if they aren't already there
-    //(We must convert the spot to an annotation to search for it in the mapAnnotations)
+    //(We must convert the spot to an annotation in order to search for it in the mapAnnotations)
     ASpot *aSpot;
     MapViewAnnotation *anAnnotation;
     CLLocationCoordinate2D loc;
@@ -89,7 +89,7 @@
     mapAnnotations = [self.mapView.annotations mutableCopy];
 
     //Remove any spots that have been deleted by checking them all against the dataController
-    //(We must convert an annotation to a spot to search for it in the dataController)
+    //(We must convert an annotation to a spot in order to search for it in the dataController)
     NSInteger numAnnotes = [mapAnnotations count];
     for(NSInteger i = 0; i < numAnnotes -1; i++) {
     //We subtract 1 here because the Current Location is at the last mapAnnotation index.
@@ -138,33 +138,20 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"%@ pin selected.",view.annotation.title);
     
+    selectedSpot = ((MapViewAnnotation *) view.annotation).aSpot;
+    
     view.canShowCallout = YES;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [button addTarget:self action:@selector(goToViewDetailsView:) forControlEvents:UIControlEventTouchUpInside];
     
-    view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    
-    /*
-    //Display a popup showing the information for the selected annotation.
-    //One problem is that this could take a while to search the entire array...
-    ASpot * aSpot;
-    for(NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        aSpot = [self.dataController objectInListAtIndex:i];
-        
-        if( ([aSpot.longitude doubleValue] == view.annotation.coordinate.longitude) && ([aSpot.latitude doubleValue] == view.annotation.coordinate.latitude) ) {
-            
-            NSString *message = [NSString stringWithFormat:@"City: %@\nState: %@\nDays: %@\nTimes: %@\nWind: %@\nEmail: %@\nPhone: %@",aSpot.city,aSpot.state,aSpot.days,aSpot.times,aSpot.wind,aSpot.email,aSpot.phone];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:aSpot.siteName message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-            [alert show];
-            break;
-        }
-    }*/
+    view.rightCalloutAccessoryView = button;
 }
 
--(void) goToViewDetailsView:(UIButton*)sender {
-    NSLog(@"In goToViewDetailsView function.");
+-(void) goToViewDetailsView:(id)sender {
+    //NSLog(@"In goToViewDetailsView function.");
+
+    [self performSegueWithIdentifier: @"goToViewOnly" sender: self];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
@@ -173,12 +160,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+   
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
         //Pass location data
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
         
         addLVC.latitude = touchCoordinate.latitude;
         addLVC.longitude = touchCoordinate.longitude;
+        addLVC.allowEditing = YES;
+    }
+    
+    if ([[segue identifier] isEqualToString:@"goToViewOnly"]) {
+        //Pass all data
+        AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
+        ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.dataController.masterList indexOfObject:selectedSpot]];
+        addLVC.aSpot = cellASpot;
+        addLVC.allowEditing = NO;
     }
 }
 

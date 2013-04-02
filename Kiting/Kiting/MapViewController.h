@@ -10,11 +10,14 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "ASpot.h"
+
 @class SpotListDataController;
 
 @interface MapViewController : UIViewController <UIActionSheetDelegate, MKMapViewDelegate> {
 
     CLLocationCoordinate2D touchCoordinate;
+    ASpot *selectedSpot;
 }
 
 @property (nonatomic, strong) MKMapView *mapView;
