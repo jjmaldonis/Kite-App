@@ -64,6 +64,26 @@
 - (void)viewDidAppear:(BOOL)animated {
     //NSLog(@"In viewDidAppear");
     
+    //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
+    
+    //Remove all the annotations from the map.
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    //Add all the spots in the list (we must convert them to annotations first).
+    ASpot *aSpot;
+    MapViewAnnotation *anAnnotation;
+    CLLocationCoordinate2D loc;
+    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
+        aSpot = [self.dataController.masterList objectAtIndex:i];
+        
+        loc.latitude = (double) [aSpot.latitude doubleValue];
+        loc.longitude = (double) [aSpot.longitude doubleValue];
+        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+
+        [self.mapView addAnnotation:anAnnotation];
+    }
+
+    /*
     //Get all the annotations that are already on the map
     NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
     
@@ -102,7 +122,8 @@
     
     //Call this again to update the array
     mapAnnotations = [self.mapView.annotations mutableCopy];
-    
+    */
+     
     //Set long press gesture
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.view addGestureRecognizer:longPress];
