@@ -63,13 +63,16 @@
 
     UIBarButtonItem *aBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myButton];
 
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,370,320,50)];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,18,320,40)];
     toolbar.tintColor = [UIColor blackColor];
+    
+    UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     NSMutableArray *newItems = [self.toolbarItems mutableCopy];
     if(!newItems) {
         newItems = [[NSMutableArray alloc] init];
     }
+    [newItems addObject:((UIButton*) flexible)];
     [newItems addObject:((UIButton*) aBarButtonItem)];
     [toolbar setItems:newItems animated:NO];
     [self.view addSubview:toolbar];
@@ -89,19 +92,19 @@
     ASpot *aSpot;
     MapViewAnnotation *anAnnotation;
     CLLocationCoordinate2D loc;
-    MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:anAnnotation reuseIdentifier:nil];
-    pinView.pinColor = MKPinAnnotationColorGreen;
 
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController.masterList objectAtIndex:i];
         
         loc.latitude = (double) [aSpot.latitude doubleValue];
         loc.longitude = (double) [aSpot.longitude doubleValue];
-        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot andOwned:TRUE];
 
         [self.mapView addAnnotation:anAnnotation];
     }
-
+    
+    
+    
     /*
     //Get all the annotations that are already on the map
     NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
@@ -164,7 +167,9 @@
         {
             // If an existing pin view was not available, create one.
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
-            pinView.pinColor = MKPinAnnotationColorGreen;
+            if( ((MapViewAnnotation*) annotation).owned ) {
+                pinView.pinColor = MKPinAnnotationColorGreen;
+            }
             pinView.animatesDrop = YES;
             pinView.canShowCallout = YES;
             
@@ -173,7 +178,7 @@
                                      UIButtonTypeDetailDisclosure];
             [rightButton addTarget:self action:@selector(goToViewDetailsView:)
                   forControlEvents:UIControlEventTouchUpInside];
-            [rightButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
+            //[rightButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
             //UIImage *imag = [[UIImage alloc] initWithCGImage:@"locIcon.png"];
             //[rightButton setImage:@"locIcon.png" forState:UIControlStateNormal];
             pinView.rightCalloutAccessoryView = rightButton;
@@ -214,20 +219,19 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     //NSLog(@"%@ pin selected.",view.annotation.title);
-    
     //Set the spot selected so that if they click the details button we know which spot they selected.
     selectedSpot = ((MapViewAnnotation *) view.annotation).aSpot;
-    
-    //Make a button that allows them to go to the details view (uneditable).
-    /*view.canShowCallout = YES;
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [button addTarget:self action:@selector(goToViewDetailsView:) forControlEvents:UIControlEventTouchUpInside];
-    view.rightCalloutAccessoryView = button;*/
 }
 
 -(void) goToViewDetailsView:(id)sender {
     //NSLog(@"In goToViewDetailsView function.");
-    [self performSegueWithIdentifier: @"goToViewOnly" sender: self];
+/*    NSLog(@"%c",((MapViewAnnotation *) selectedSpot).owned);
+    if( ((MapViewAnnotation *) selectedSpot).owned){
+        [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
+    }
+    else {*/
+        [self performSegueWithIdentifier: @"goToViewOnly" sender: self];
+    //}
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {

@@ -17,7 +17,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) ASpot *aSpot;
+@property (nonatomic, assign) BOOL owned;
 
-- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot*)spot;
+- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot*)spot andOwned:(BOOL)own;
 
 @end

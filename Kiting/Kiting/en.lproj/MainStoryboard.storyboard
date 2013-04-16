@@ -495,7 +495,7 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Spot" id="36">
+                    <navigationItem key="navigationItem" title="My Spots" id="36">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ovj-Lc-wZo">
                             <connections>
                                 <segue destination="R7h-ly-EEx" kind="modal" identifier="createNewSpot" id="4nF-T0-OHV"/>
@@ -569,16 +569,11 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="currLocButtonAction"/>
-                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -587,6 +582,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ttI-0k-6mc"/>
+        <segue reference="DYw-dA-AMh"/>
     </inferredMetricsTieBreakers>
 </document>

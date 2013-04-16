@@ -10,10 +10,11 @@
 
 @implementation MapViewAnnotation
 
-- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot *)spot{
+- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d andSpot:(ASpot *)spot andOwned:(BOOL)own{
 	self.title = ttl;
 	self.coordinate = c2d;
     self.aSpot = spot;
+    self.owned = own;
 	return self;
 }
 
