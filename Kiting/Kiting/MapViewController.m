@@ -43,7 +43,7 @@
     [super viewDidLoad];
     
     //Make the map rectangle (take into account the button bar) and display it for the user.
-    CGRect  viewRect = CGRectMake(0, 0, 320, 390);
+    CGRect  viewRect = CGRectMake(0, 58, 320, 373);
     self.mapView = [[MKMapView alloc] initWithFrame:viewRect];
     self.mapView.mapType = MKMapTypeHybrid;
     [self.view addSubview:self.mapView];
@@ -71,6 +71,9 @@
     ASpot *aSpot;
     MapViewAnnotation *anAnnotation;
     CLLocationCoordinate2D loc;
+    MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:anAnnotation reuseIdentifier:nil];
+    pinView.pinColor = MKPinAnnotationColorGreen;
+
     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
         aSpot = [self.dataController.masterList objectAtIndex:i];
         
@@ -127,6 +130,42 @@
     [self.view addGestureRecognizer:longPress];
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // If it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[MapViewAnnotation class]])
+    {
+        // Try to dequeue an existing pin view first.
+        MKPinAnnotationView*    pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        
+        if (!pinView)
+        {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+            pinView.pinColor = MKPinAnnotationColorGreen;
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+            
+            // Add a detail disclosure button to the callout.
+            UIButton* rightButton = [UIButton buttonWithType:
+                                     UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:self action:@selector(goToViewDetailsView:)
+                  forControlEvents:UIControlEventTouchUpInside];
+            pinView.rightCalloutAccessoryView = rightButton;
+        }
+        else
+            pinView.annotation = annotation;
+        
+        return pinView;
+    }
+    
+    return nil;
+}
+
 - (IBAction)currLocButtonAction {
     //Create the span width and set viewing region around the current location
     MKCoordinateSpan span = {.latitudeDelta =  0.3, .longitudeDelta =  0.3};
@@ -159,10 +198,10 @@
     selectedSpot = ((MapViewAnnotation *) view.annotation).aSpot;
     
     //Make a button that allows them to go to the details view (uneditable).
-    view.canShowCallout = YES;
+    /*view.canShowCallout = YES;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [button addTarget:self action:@selector(goToViewDetailsView:) forControlEvents:UIControlEventTouchUpInside];
-    view.rightCalloutAccessoryView = button;
+    view.rightCalloutAccessoryView = button;*/
 }
 
 -(void) goToViewDetailsView:(id)sender {

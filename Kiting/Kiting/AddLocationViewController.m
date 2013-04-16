@@ -79,6 +79,30 @@
         [self.nameInput setUserInteractionEnabled:NO];
         [self.emailInput setUserInteractionEnabled:NO];
         [self.phoneInput setUserInteractionEnabled:NO];
+        
+        [self.siteNameInput setBorderStyle:UITextBorderStyleNone];
+        [self.cityInput setBorderStyle:UITextBorderStyleNone];
+        [self.stateInput setBorderStyle:UITextBorderStyleNone];
+        [self.longitudeInput setBorderStyle:UITextBorderStyleNone];
+        [self.latitudeInput setBorderStyle:UITextBorderStyleNone];
+        [self.daysInput setBorderStyle:UITextBorderStyleNone];
+        [self.timesInput setBorderStyle:UITextBorderStyleNone];
+        [self.windInput setBorderStyle:UITextBorderStyleNone];
+        [self.nameInput setBorderStyle:UITextBorderStyleNone];
+        [self.emailInput setBorderStyle:UITextBorderStyleNone];
+        [self.phoneInput setBorderStyle:UITextBorderStyleNone];
+        
+        [self.siteNameInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.cityInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.stateInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.longitudeInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.latitudeInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.daysInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.timesInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.windInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.nameInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.emailInput setClearButtonMode:UITextFieldViewModeNever];
+        [self.phoneInput setClearButtonMode:UITextFieldViewModeNever];
     }
     else {
         [self.siteNameInput setUserInteractionEnabled:YES];
@@ -92,6 +116,18 @@
         [self.nameInput setUserInteractionEnabled:YES];
         [self.emailInput setUserInteractionEnabled:YES];
         [self.phoneInput setUserInteractionEnabled:YES];
+        
+        [self.siteNameInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.cityInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.stateInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.longitudeInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.latitudeInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.daysInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.timesInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.windInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.nameInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.emailInput setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.phoneInput setBorderStyle:UITextBorderStyleRoundedRect];
     }
     
     // Uncomment the following line to preserve selection between presentations.
