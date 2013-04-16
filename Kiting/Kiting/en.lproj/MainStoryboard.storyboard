@@ -31,24 +31,7 @@
                     <view key="view" contentMode="scaleToFill" id="mwN-gJ-UQx">
                         <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="XU7-PQ-CpC">
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vlJ-Fy-4Lq"/>
-                                    <barButtonItem image="locIcon.png" id="n2E-p5-VtT">
-                                        <connections>
-                                            <action selector="currLocButtonAction" destination="Tby-Ra-a87" id="3QI-Ya-f2p"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="trailing" secondItem="mwN-gJ-UQx" secondAttribute="trailing" type="default" id="YLl-Zz-7Ce"/>
-                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="leading" secondItem="mwN-gJ-UQx" secondAttribute="leading" type="default" id="iM9-Qh-TI3"/>
-                            <constraint firstItem="XU7-PQ-CpC" firstAttribute="top" secondItem="mwN-gJ-UQx" secondAttribute="top" constant="14" id="tEp-wB-W0i"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="u1f-Ha-jki"/>
                     <connections>
@@ -563,9 +546,6 @@
             <point key="canvasLocation" x="36" y="419"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="locIcon.png" width="25" height="26"/>
-    </resources>
     <classes>
         <class className="AddLocationViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddLocationViewController.h"/>

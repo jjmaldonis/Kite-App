@@ -56,6 +56,24 @@
     //Beloit Long: -89.033031
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
+    
+    UIButton* myButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [myButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
+    [myButton addTarget:self action:@selector(currLocButtonAction) forControlEvents:UIControlEventTouchUpInside];
+
+    UIBarButtonItem *aBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myButton];
+
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,370,320,50)];
+    toolbar.tintColor = [UIColor blackColor];
+    
+    NSMutableArray *newItems = [self.toolbarItems mutableCopy];
+    if(!newItems) {
+        newItems = [[NSMutableArray alloc] init];
+    }
+    [newItems addObject:((UIButton*) aBarButtonItem)];
+    [toolbar setItems:newItems animated:NO];
+    [self.view addSubview:toolbar];
+    
     [self.mapView setDelegate:self];
 }
 
@@ -155,6 +173,9 @@
                                      UIButtonTypeDetailDisclosure];
             [rightButton addTarget:self action:@selector(goToViewDetailsView:)
                   forControlEvents:UIControlEventTouchUpInside];
+            [rightButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
+            //UIImage *imag = [[UIImage alloc] initWithCGImage:@"locIcon.png"];
+            //[rightButton setImage:@"locIcon.png" forState:UIControlStateNormal];
             pinView.rightCalloutAccessoryView = rightButton;
         }
         else
