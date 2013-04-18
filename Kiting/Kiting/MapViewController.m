@@ -56,24 +56,30 @@
     //Beloit Long: -89.033031
     //Coe Lat: 37.909534
     //Coe Long: -122.579956
-    
-    UIButton* myButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [myButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
-    [myButton addTarget:self action:@selector(currLocButtonAction) forControlEvents:UIControlEventTouchUpInside];
-
-    UIBarButtonItem *aBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myButton];
-
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,18,320,40)];
     toolbar.tintColor = [UIColor blackColor];
     
+    UIButton* refreshButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    [refreshButton setTitle:@"Refresh" forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:@selector(refreshAnnotations) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *refreshBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
+    //THE FOLLOWING LINE DOESNT HELP AT ALL
+    [refreshBarButtonItem setStyle:UIBarButtonItemStyleBordered];
+    
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIButton* locButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [locButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
+    [locButton addTarget:self action:@selector(currLocButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *locBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:locButton];
     
     NSMutableArray *newItems = [self.toolbarItems mutableCopy];
     if(!newItems) {
         newItems = [[NSMutableArray alloc] init];
     }
+    [newItems addObject:((UIButton*) refreshBarButtonItem)];
     [newItems addObject:((UIButton*) flexible)];
-    [newItems addObject:((UIButton*) aBarButtonItem)];
+    [newItems addObject:((UIButton*) locBarButtonItem)];
     [toolbar setItems:newItems animated:NO];
     [self.view addSubview:toolbar];
     
@@ -82,105 +88,136 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     //NSLog(@"In viewDidAppear");
-    
-    //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes a time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
-    
-    //Remove all the annotations from the map.
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    
-    //Add all the spots in the list (we must convert them to annotations first).
-    ASpot *aSpot;
-    MapViewAnnotation *anAnnotation;
-    CLLocationCoordinate2D loc;
 
-    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        aSpot = [self.dataController.masterList objectAtIndex:i];
-        
-        loc.latitude = (double) [aSpot.latitude doubleValue];
-        loc.longitude = (double) [aSpot.longitude doubleValue];
-        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot andOwned:TRUE];
-
-        [self.mapView addAnnotation:anAnnotation];
-    }
+    [self refreshAnnotations];
     
-    
-    
-    /*
-    //Get all the annotations that are already on the map
-    NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
-    
-    //Add all the spots in the list if they aren't already there
-    //(We must convert the spot to an annotation in order to search for it in the mapAnnotations)
-    ASpot *aSpot;
-    MapViewAnnotation *anAnnotation;
-    CLLocationCoordinate2D loc;
-    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
-        aSpot = [self.dataController.masterList objectAtIndex:i];
-        
-        loc.latitude = (double) [aSpot.latitude doubleValue];
-        loc.longitude = (double) [aSpot.longitude doubleValue];
-        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
-
-        if( [mapAnnotations indexOfObject:anAnnotation] == NSNotFound ) {
-        
-            [self.mapView addAnnotation:anAnnotation];
-        }
-    }
-    
-    //Call this again to update the array
-    mapAnnotations = [self.mapView.annotations mutableCopy];
-
-    //Remove any spots that have been deleted by checking them all against the dataController
-    //(We must convert an annotation to a spot in order to search for it in the dataController)
-    NSInteger numAnnotes = [mapAnnotations count];
-    for(NSInteger i = 0; i < numAnnotes -1; i++) {
-    //We subtract 1 here because the Current Location is at the last mapAnnotation index.
-        anAnnotation = [mapAnnotations objectAtIndex:i];
-        aSpot = anAnnotation.aSpot;
-        if( [self.dataController.masterList indexOfObject:aSpot] == NSNotFound ) {
-            [self.mapView removeAnnotation:[mapAnnotations objectAtIndex:i]];
-        }
-    }
-    
-    //Call this again to update the array
-    mapAnnotations = [self.mapView.annotations mutableCopy];
-    */
-     
     //Set long press gesture to add a location at the pressed location
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.view addGestureRecognizer:longPress];
 }
 
+- (void) refreshAnnotations
+{
+    //Remove all the annotations from the map.
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    //Update the user's annotations on the map
+    [self dropMyAnnotations];
+    
+    //Get and drop the database's annotations on the map
+    [self dropDatabaseAnnotations];
+}
+
+- (void)dropMyAnnotations
+{
+    //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes a time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
+    
+    //Add all the spots in the list (we must convert them to annotations first).
+    ASpot *aSpot;
+    MapViewAnnotation *anAnnotation;
+    CLLocationCoordinate2D loc;
+    
+    for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
+        aSpot = [self.dataController.masterList objectAtIndex:i];
+        loc.latitude = (double) [aSpot.latitude doubleValue];
+        loc.longitude = (double) [aSpot.longitude doubleValue];
+        
+        anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot andOwned:TRUE];
+        
+        [self.mapView addAnnotation:anAnnotation];
+    }
+
+     /*
+     //Get all the annotations that are already on the map
+     NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
+     
+     //Add all the spots in the list if they aren't already there
+     //(We must convert the spot to an annotation in order to search for it in the mapAnnotations)
+     ASpot *aSpot;
+     MapViewAnnotation *anAnnotation;
+     CLLocationCoordinate2D loc;
+     for (NSInteger i = 0; i < [self.dataController countOfList]; i++) {
+     aSpot = [self.dataController.masterList objectAtIndex:i];
+     
+     loc.latitude = (double) [aSpot.latitude doubleValue];
+     loc.longitude = (double) [aSpot.longitude doubleValue];
+     anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot];
+     
+     if( [mapAnnotations indexOfObject:anAnnotation] == NSNotFound ) {
+     
+     [self.mapView addAnnotation:anAnnotation];
+     }
+     }
+     
+     //Call this again to update the array
+     mapAnnotations = [self.mapView.annotations mutableCopy];
+     
+     //Remove any spots that have been deleted by checking them all against the dataController
+     //(We must convert an annotation to a spot in order to search for it in the dataController)
+     NSInteger numAnnotes = [mapAnnotations count];
+     for(NSInteger i = 0; i < numAnnotes -1; i++) {
+     //We subtract 1 here because the Current Location is at the last mapAnnotation index.
+     anAnnotation = [mapAnnotations objectAtIndex:i];
+     aSpot = anAnnotation.aSpot;
+     if( [self.dataController.masterList indexOfObject:aSpot] == NSNotFound ) {
+     [self.mapView removeAnnotation:[mapAnnotations objectAtIndex:i]];
+     }
+     }
+     
+     //Call this again to update the array
+     mapAnnotations = [self.mapView.annotations mutableCopy];
+     */
+}
+
+- (void) dropDatabaseAnnotations
+{
+    MapViewAnnotation *anAnnotation;
+    CLLocationCoordinate2D loc;
+    
+    ASpot *aSpot = [[ASpot alloc] init];
+    aSpot.siteName = @"DB Spot 1";
+    aSpot.latitude = @"37.909534";
+    aSpot.longitude = @"-122.579956";
+ 
+    loc.latitude =  (double) [aSpot.latitude  doubleValue];
+    loc.longitude = (double) [aSpot.longitude doubleValue];
+    
+    anAnnotation = [[MapViewAnnotation alloc] initWithTitle:[NSString stringWithFormat:@"%@", aSpot.siteName] andCoordinate:loc andSpot:aSpot andOwned:FALSE];
+    
+    [self.mapView addAnnotation:anAnnotation];
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    // If it's the user location, just return nil.
+    //If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
     
     // Handle any custom annotations.
     if ([annotation isKindOfClass:[MapViewAnnotation class]])
     {
-        // Try to dequeue an existing pin view first.
-        MKPinAnnotationView*    pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        //Try to dequeue an existing pin view first.
+        MKPinAnnotationView* pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
         
         if (!pinView)
         {
-            // If an existing pin view was not available, create one.
+            //If an existing pin view was not available, create one.
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+            
+            NSLog(@"Pin = %@; %c",((MapViewAnnotation*) annotation).title, ((MapViewAnnotation*) annotation).owned);
+
             if( ((MapViewAnnotation*) annotation).owned ) {
+                NSLog(@"owned");
                 pinView.pinColor = MKPinAnnotationColorGreen;
+                pinView.animatesDrop = YES;
             }
-            pinView.animatesDrop = YES;
             pinView.canShowCallout = YES;
             
-            // Add a detail disclosure button to the callout.
+            //Add a detail disclosure button to the callout.
             UIButton* rightButton = [UIButton buttonWithType:
                                      UIButtonTypeDetailDisclosure];
             [rightButton addTarget:self action:@selector(goToViewDetailsView:)
                   forControlEvents:UIControlEventTouchUpInside];
-            //[rightButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
-            //UIImage *imag = [[UIImage alloc] initWithCGImage:@"locIcon.png"];
-            //[rightButton setImage:@"locIcon.png" forState:UIControlStateNormal];
             pinView.rightCalloutAccessoryView = rightButton;
         }
         else
@@ -220,30 +257,38 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     //NSLog(@"%@ pin selected.",view.annotation.title);
     //Set the spot selected so that if they click the details button we know which spot they selected.
-    selectedSpot = ((MapViewAnnotation *) view.annotation).aSpot;
+    selectedAnnotation = ((MapViewAnnotation *) view.annotation);
 }
 
 -(void) goToViewDetailsView:(id)sender {
     //NSLog(@"In goToViewDetailsView function.");
-/*    NSLog(@"%c",((MapViewAnnotation *) selectedSpot).owned);
-    if( ((MapViewAnnotation *) selectedSpot).owned){
-        [self performSegueWithIdentifier: @"goToDetailsFromMap" sender: self];
+    if( ((MapViewAnnotation *) selectedAnnotation).owned){
+        [self performSegueWithIdentifier: @"goToDetailsFromMapWithEditing" sender: self];
     }
-    else {*/
+    else {
         [self performSegueWithIdentifier: @"goToViewOnly" sender: self];
-    //}
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
     //NSLog(@"%@ pin deselected.",view.annotation.title);
+    selectedAnnotation = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if ([[segue identifier] isEqualToString:@"goToDetailsFromMapWithEditing"]) {
+        //Pass all data and enable editing
+        AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
+        ASpot *cellASpot = selectedAnnotation.aSpot;
+        addLVC.aSpot = cellASpot;
+        addLVC.allowEditing = YES;
+    }
+
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
         //Pass location data and enable editing
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-        
+
         addLVC.latitude = touchCoordinate.latitude;
         addLVC.longitude = touchCoordinate.longitude;
         addLVC.allowEditing = YES;
@@ -252,7 +297,7 @@
     if ([[segue identifier] isEqualToString:@"goToViewOnly"]) {
         //Pass all data and disable editing
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-        ASpot *cellASpot = [self.dataController.masterList objectAtIndex:[self.dataController.masterList indexOfObject:selectedSpot]];
+        ASpot *cellASpot = selectedAnnotation.aSpot;
         addLVC.aSpot = cellASpot;
         addLVC.allowEditing = NO;
     }

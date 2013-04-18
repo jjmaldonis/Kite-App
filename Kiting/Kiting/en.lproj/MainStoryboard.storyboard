@@ -37,6 +37,7 @@
                     <connections>
                         <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMap" id="KGk-sJ-43e"/>
                         <segue destination="R7h-ly-EEx" kind="modal" identifier="goToViewOnly" id="ttI-0k-6mc"/>
+                        <segue destination="R7h-ly-EEx" kind="modal" identifier="goToDetailsFromMapWithEditing" id="Niz-J2-4Wj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXT-Nc-CUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -569,11 +570,16 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="currLocButtonAction"/>
+                <relationship kind="action" name="done:" candidateClass="UIStoryboardSegue"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -582,6 +588,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DYw-dA-AMh"/>
+        <segue reference="Niz-J2-4Wj"/>
     </inferredMetricsTieBreakers>
 </document>
