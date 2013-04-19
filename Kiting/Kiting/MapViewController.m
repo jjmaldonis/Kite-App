@@ -24,7 +24,7 @@
 
 - (void)awakeFromNib
 {
-
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,19 +59,12 @@
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,18,320,40)];
     toolbar.tintColor = [UIColor blackColor];
     
-    UIButton* refreshButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [refreshButton setTitle:@"Refresh" forState:UIControlStateNormal];
-    [refreshButton addTarget:self action:@selector(refreshAnnotations) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *refreshBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
-    //THE FOLLOWING LINE DOESNT HELP AT ALL
-    [refreshBarButtonItem setStyle:UIBarButtonItemStyleBordered];
+    UIBarButtonItem *refreshBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStyleBordered target:self action:@selector(refreshAnnotations)];
+    //refreshBarButtonItem.titleLabel.font = [UIFont systemFontOfSize:18];
     
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIButton* locButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [locButton setBackgroundImage:[UIImage imageNamed:@"locIcon.png"] forState:UIControlStateNormal];
-    [locButton addTarget:self action:@selector(currLocButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *locBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:locButton];
+    UIBarButtonItem *locBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"locIconTrans3.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(currLocButtonAction)];
     
     NSMutableArray *newItems = [self.toolbarItems mutableCopy];
     if(!newItems) {
@@ -88,7 +81,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     //NSLog(@"In viewDidAppear");
-
+    
     [self refreshAnnotations];
     
     //Set long press gesture to add a location at the pressed location
@@ -102,13 +95,13 @@
     [self.mapView removeAnnotations:self.mapView.annotations];
     
     //Update the user's annotations on the map
-    [self dropMyAnnotations];
+    [self addMyAnnotations];
     
     //Get and drop the database's annotations on the map
-    [self dropDatabaseAnnotations];
+    [self addDatabaseAnnotations];
 }
 
-- (void)dropMyAnnotations
+- (void) addMyAnnotations
 {
     //Here we need to update the annotations on the map. We can do this easily by removing them all and then re-adding them all OR we can selectively add and remove the ones that were changed / added / deleted. I am going to go with the easy route for now because until it causes a time problem it will work really well. I will, however, leave the code I have written to do the more difficult case (commented out) in case I want to change back - as far as I can tell it works correctly.
     
@@ -126,8 +119,8 @@
         
         [self.mapView addAnnotation:anAnnotation];
     }
-
-     /*
+    
+    /*
      //Get all the annotations that are already on the map
      NSMutableArray *mapAnnotations = [self.mapView.annotations mutableCopy];
      
@@ -169,7 +162,7 @@
      */
 }
 
-- (void) dropDatabaseAnnotations
+- (void) addDatabaseAnnotations
 {
     MapViewAnnotation *anAnnotation;
     CLLocationCoordinate2D loc;
@@ -178,7 +171,7 @@
     aSpot.siteName = @"DB Spot 1";
     aSpot.latitude = @"37.909534";
     aSpot.longitude = @"-122.579956";
- 
+    
     loc.latitude =  (double) [aSpot.latitude  doubleValue];
     loc.longitude = (double) [aSpot.longitude doubleValue];
     
@@ -203,30 +196,48 @@
         {
             //If an existing pin view was not available, create one.
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
-            
-            NSLog(@"Pin = %@; %c",((MapViewAnnotation*) annotation).title, ((MapViewAnnotation*) annotation).owned);
-
-            if( ((MapViewAnnotation*) annotation).owned ) {
-                NSLog(@"owned");
-                pinView.pinColor = MKPinAnnotationColorGreen;
-                pinView.animatesDrop = YES;
-            }
-            pinView.canShowCallout = YES;
-            
-            //Add a detail disclosure button to the callout.
-            UIButton* rightButton = [UIButton buttonWithType:
-                                     UIButtonTypeDetailDisclosure];
-            [rightButton addTarget:self action:@selector(goToViewDetailsView:)
-                  forControlEvents:UIControlEventTouchUpInside];
-            pinView.rightCalloutAccessoryView = rightButton;
         }
         else
+        {
             pinView.annotation = annotation;
+        }
+        //NSLog(@"Pin = %@; %c",((MapViewAnnotation*) annotation).title, ((MapViewAnnotation*) annotation).owned);
+        
+        pinView.animatesDrop = YES;
+        pinView.pinColor = MKPinAnnotationColorRed;
+        if( ((MapViewAnnotation*) annotation).owned ) {
+            pinView.pinColor = MKPinAnnotationColorGreen;
+        }
+        pinView.canShowCallout = YES;
+        
+        //Add a detail disclosure button to the right callout.
+        UIButton* rightButton = [UIButton buttonWithType:
+                                 UIButtonTypeDetailDisclosure];
+        [rightButton addTarget:self action:@selector(goToViewDetailsView:)
+              forControlEvents:UIControlEventTouchUpInside];
+        pinView.rightCalloutAccessoryView = rightButton;
+        
+        //Add a directions button to the left callout.
+        UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [leftButton setImage:[UIImage imageNamed:@"Green Car.png"] forState:UIControlStateNormal];
+        [leftButton addTarget:self action:@selector(getDirections:)
+              forControlEvents:UIControlEventTouchUpInside];
+        pinView.leftCalloutAccessoryView = leftButton;
         
         return pinView;
     }
     
     return nil;
+}
+
+-(void) getDirections:(id)sender {
+    //create MKMapItem out of coordinates
+    
+    //I SHOULD HAVE A WHILE LOOP HERE ITERATING THROUGH THE SUPERVIEWS UNTIL I GET TO THE MKPINANNOTATIONVIEW INSTEAD OF JUST ASSUMING IT IS 2
+    MapViewAnnotation *annotation = ( (MKPinAnnotationView *) [[sender superview] superview]).annotation;
+    MKPlacemark* placeMark = [[MKPlacemark alloc] initWithCoordinate:((MapViewAnnotation*) annotation).coordinate addressDictionary:nil];
+    MKMapItem* destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
+    [destination openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving}];
 }
 
 - (IBAction)currLocButtonAction {
@@ -284,11 +295,11 @@
         addLVC.aSpot = cellASpot;
         addLVC.allowEditing = YES;
     }
-
+    
     if ([[segue identifier] isEqualToString:@"goToDetailsFromMap"]) {
         //Pass location data and enable editing
         AddLocationViewController *addLVC = (AddLocationViewController*) [(UINavigationController*) [segue destinationViewController] topViewController];
-
+        
         addLVC.latitude = touchCoordinate.latitude;
         addLVC.longitude = touchCoordinate.longitude;
         addLVC.allowEditing = YES;
