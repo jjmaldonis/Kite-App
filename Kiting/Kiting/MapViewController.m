@@ -220,6 +220,8 @@
         //Add a directions button to the left callout.
         UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [leftButton setImage:[UIImage imageNamed:@"Green Car.png"] forState:UIControlStateNormal];
+        [leftButton setImage:[UIImage imageNamed:@"Green Car.png"] forState:UIControlStateHighlighted];
+
         [leftButton addTarget:self action:@selector(getDirections:)
               forControlEvents:UIControlEventTouchUpInside];
         pinView.leftCalloutAccessoryView = leftButton;

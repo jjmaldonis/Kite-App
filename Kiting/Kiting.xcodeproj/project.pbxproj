@@ -33,6 +33,7 @@
 		0FA4A1DF1721E64F005ABBB0 /* locIconTrans2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FA4A1DE1721E64F005ABBB0 /* locIconTrans2.png */; };
 		0FA4A1E11721E70D005ABBB0 /* locIconTrans3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FA4A1E01721E70D005ABBB0 /* locIconTrans3.png */; };
 		0FA4A1E31721F49A005ABBB0 /* Green Car.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FA4A1E21721F49A005ABBB0 /* Green Car.png */; };
+		0FE5B75D1726EA3100531DA2 /* ios-maps-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE5B75C1726EA3100531DA2 /* ios-maps-icon.png */; };
 		0FE63B8F16D30FBB00B2C09B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE63B8E16D30FBB00B2C09B /* MapKit.framework */; };
 		0FE63C0816D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
 		0FE63C0916D325E600B2C09B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */; };
@@ -87,6 +88,7 @@
 		0FA4A1DE1721E64F005ABBB0 /* locIconTrans2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locIconTrans2.png; sourceTree = "<group>"; };
 		0FA4A1E01721E70D005ABBB0 /* locIconTrans3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locIconTrans3.png; sourceTree = "<group>"; };
 		0FA4A1E21721F49A005ABBB0 /* Green Car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Green Car.png"; sourceTree = "<group>"; };
+		0FE5B75C1726EA3100531DA2 /* ios-maps-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-maps-icon.png"; sourceTree = "<group>"; };
 		0FE63B8E16D30FBB00B2C09B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0FE63C0616D325E500B2C09B /* MapViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAnnotation.h; sourceTree = "<group>"; };
 		0FE63C0716D325E500B2C09B /* MapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAnnotation.m; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		0F6E08CE16CAC8E100277C07 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0FE5B75C1726EA3100531DA2 /* ios-maps-icon.png */,
 				0FA4A1E21721F49A005ABBB0 /* Green Car.png */,
 				0FA4A1E01721E70D005ABBB0 /* locIconTrans3.png */,
 				0FA4A1DE1721E64F005ABBB0 /* locIconTrans2.png */,
@@ -301,6 +304,7 @@
 				0FA4A1DF1721E64F005ABBB0 /* locIconTrans2.png in Resources */,
 				0FA4A1E11721E70D005ABBB0 /* locIconTrans3.png in Resources */,
 				0FA4A1E31721F49A005ABBB0 /* Green Car.png in Resources */,
+				0FE5B75D1726EA3100531DA2 /* ios-maps-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
