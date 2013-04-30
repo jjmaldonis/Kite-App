@@ -64,7 +64,7 @@
     
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *locBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"locIconTrans3.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(currLocButtonAction)];
+    UIBarButtonItem *locBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"193-location-arrow.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(currLocButtonAction)];
     
     NSMutableArray *newItems = [self.toolbarItems mutableCopy];
     if(!newItems) {
